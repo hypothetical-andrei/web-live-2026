@@ -1,0 +1,67 @@
+$CATEGORY: Web Technologies/Unitatea 01/Intermezzo 1
+
+::u01-i1-fragment::Ce componentă URL este păstrată de browser și omisă din ținta cererii HTTP? {
+=Fragmentul #Corect. Fragmentul identifică un context pe partea clientului și nu este trimis serverului.
+~Calea #Incorect. Calea face parte din ținta cererii.
+~Query-ul #Incorect. Query-ul este inclus în ținta cererii.
+~Autoritatea #Incorect. Autoritatea identifică endpointul de rețea.
+}
+
+::u01-i1-message-direction::Unde apare `201 Created` într-un schimb HTTP? {
+=În linia de stare a răspunsului #Corect. Codurile de stare comunică rezultatul răspunsului serverului.
+~În linia cererii #Incorect. Linia cererii conține metoda și ținta cererii.
+~În corpul cererii #Incorect. Corpul transportă o reprezentare, nu starea răspunsului.
+~În fragmentul URL #Incorect. Fragmentele rămân în browser.
+}
+
+::u01-i1-client-role::Numai un browser web poate avea rolul de client HTTP. {FALSE #Corect. Curl, testele, serverele și alte aplicații pot iniția cereri HTTP.}
+
+::u01-i1-optional-field::Un server adaugă un header opțional pe care un client mai vechi nu îl recunoaște. Când poate clientul vechi să folosească în continuare contractul mai simplu? {
+=Când interpretarea corectă depinde în continuare numai de stare, câmpurile înțelese și reprezentare #Corect. Metadatele opționale pot extinde schimbul fără a-i redefini sensul de bază.
+~Ori de câte ori serverul cere în secret noul header #Incorect. O dependență semantică obligatorie nu este o extensie opțională compatibilă.
+~Numai când răspunsul nu are cod de stare #Incorect. Fiecare răspuns HTTP are un cod de stare.
+~Numai când headerul necunoscut înlocuiește Content-Type #Incorect. Înlocuirea metadatelor obligatorii ale reprezentării ar încălca contractul simplu.
+}
+
+$CATEGORY: Web Technologies/Unitatea 01/Intermezzo 2
+
+::u01-i2-created-contract::Ce combinație descrie cel mai clar crearea reușită a unei resurse? {
+=Starea 201, un header Location și o reprezentare a resursei create #Corect. Elementele comunică în mod consecvent crearea.
+~Starea 404 și un header Location #Incorect. Starea not found contrazice crearea reușită.
+~Starea 200 cu o eroare text fără legătură #Incorect. Starea și corpul comunică rezultate contradictorii.
+~Starea 204 cu un corp JSON #Incorect. Un răspuns 204 nu trebuie să conțină corp.
+}
+
+::u01-i2-media-type::Un corp conține caractere care seamănă cu JSON, dar este declarat `text/plain`. Cum trebuie să îl clasifice inițial clientul? {
+=Ca text #Corect. Tipul media declarat determină tratarea reprezentării.
+~Ca JSON, deoarece acoladele au prioritate față de header #Incorect. Aspectul corpului nu suprascrie Content-Type.
+~Ca URL #Incorect. Corpul unei reprezentări nu devine astfel identificator de resursă.
+~Ca eșec de rețea #Incorect. O reprezentare text poate aparține unui răspuns reușit.
+}
+
+::u01-i2-rest-json::Orice endpoint care returnează JSON este automat RESTful. {FALSE #Corect. JSON este o sintaxă de reprezentare; REST privește semantica resurselor și a protocolului.}
+
+::u01-i2-method-outcome::Ce afirmație separă corect metoda cererii de starea răspunsului? {
+=POST exprimă procesarea cerută; 201 raportează că a fost creată o resursă #Corect. Metoda și starea aparțin unor mesaje diferite și răspund la întrebări diferite.
+~201 exprimă ce dorește clientul să facă serverul #Incorect. Starea raportează rezultatul răspunsului.
+~GET dovedește că serverul a returnat 200 #Incorect. O cerere GET poate produce multe stări, inclusiv 404 sau 500.
+~404 este o metodă pentru preluarea resurselor lipsă #Incorect. 404 este starea unui răspuns.
+}
+
+$CATEGORY: Web Technologies/Unitatea 01/Intermezzo 3
+
+::u01-i3-task-context::Ce element aparține secțiunii de context a unei sarcini Gemini bine delimitate? {
+=Fișierele relevante și eșecul observat în prezent #Corect. Contextul indică locul comportamentului și situația curentă.
+~Permisiunea de a rescrie orice fișier #Incorect. Aceasta elimină constrângerile utile de domeniu.
+~Afirmația că verificarea nu este necesară #Incorect. Acceptarea necesită dovezi observabile.
+~Numai limbajul de programare dorit #Incorect. Poate fi o constrângere, dar nu este context suficient.
+}
+
+::u01-i3-independent-gates::O diferență permisă într-un singur fișier este dovadă suficientă că acel comportament este corect. {FALSE #Corect. Revizuirea domeniului și verificarea comportamentului sunt porți separate.}
+
+::u01-i3-repair-order::Ce secvență asistată de AI produce cele mai bune dovezi pentru un proiect HTTP nefamiliar? {
+=Inspectați fără editare, clarificați instrumentele, formulați contractul, adăugați și contestați o verificare focalizată, cereți o reparație delimitată, inspectați diferența, rerulați verificările și verificați independent. #Corect. Secvența separă înțelegerea, sensibilitatea testului, implementarea autorizată și dovezile de acceptare.
+~Regenerați întregul repository și acceptați rezultatul. #Incorect. Se pierde diagnosticul și crește riscul.
+~Modificați testele până trece rezultatul curent. #Incorect. Slăbirea dovezilor nu repară contractul.
+~Întrebați agentul dacă propriul cod este corect și opriți-vă. #Incorect. Autoevaluarea nu este verificare independentă.
+}

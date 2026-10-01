@@ -1,0 +1,26 @@
+# Ghid didactic
+#
+# Obiectiv: un schimb HTTP conține două mesaje distincte ale căror metode, headere, stare și corp nu trebuie amestecate.
+#
+# Motivul structurii: traseul compact face vizibilă limita client/server înainte de introducerea implementării serverului.
+#
+# Urmăriți dovezile:
+# - Metoda și `Content-Type` al cererii aparțin cererii.
+# - Starea și `Location` aparțin răspunsului.
+# - `Example-Trace-Id` este o extensie opțională; reprezentarea rămâne utilizabilă fără ea.
+# - Ambele mesaje pot transporta JSON, dar corpurile au roluri diferite.
+
+POST /api/notes HTTP/1.1
+Host: course.example
+Content-Type: application/json
+Content-Length: 26
+
+{"text":"Citiți diff-ul"}
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+Location: /api/notes/n-7
+Example-Trace-Id: trace-create-7
+Content-Length: 37
+
+{"id":"n-7","text":"Citiți diff-ul"}
