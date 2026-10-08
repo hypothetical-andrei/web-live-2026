@@ -1,0 +1,2 @@
+import assert from 'node:assert/strict'; import test from 'node:test'; import { normalizeEvents } from '../src/safe-normalizer.js';
+test('frozen input is unchanged and output does not alias records',()=>{ const record=Object.freeze({id:'A',occurredAt:'2026-01-01T00:00:00Z',active:true,durationMs:1}); const input=Object.freeze([record]); const output=normalizeEvents(input); assert.notEqual(output[0],record); assert.deepEqual(input,[record]); });

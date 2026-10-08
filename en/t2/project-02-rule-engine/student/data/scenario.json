@@ -1,0 +1,15 @@
+{
+  "records": [
+    { "id": "T-1", "owner": "Ada", "status": "open", "priority": "high", "estimate": 5, "tags": ["api"] },
+    { "id": "T-2", "owner": "Lin", "status": "open", "priority": "low", "estimate": 2, "tags": ["ui"] },
+    { "id": "T-3", "owner": "Ada", "status": "done", "priority": "high", "estimate": 8, "tags": ["api", "urgent"] }
+  ],
+  "rule": { "all": [
+    { "field": "owner", "operator": "equals", "value": "Ada" },
+    { "any": [
+      { "field": "estimate", "operator": "atLeast", "value": 6 },
+      { "field": "tags", "operator": "includes", "value": "api" }
+    ] },
+    { "not": { "field": "status", "operator": "equals", "value": "done" } }
+  ] }
+}

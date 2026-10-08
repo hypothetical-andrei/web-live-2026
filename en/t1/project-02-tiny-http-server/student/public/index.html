@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tiny HTTP Server</title>
+    <link rel="stylesheet" href="/assets/site.css">
+  </head>
+  <body>
+    <main>
+      <h1>Tiny HTTP Server</h1>
+      <p>
+        This page is served from a file on disk. The API routes below are
+        handled separately by the Node server.
+      </p>
+      <ul>
+        <li><code>GET /api/greetings?name=Ada</code> reads a query value.</li>
+        <li><code>GET /api/greetings/Ada</code> reads a path segment.</li>
+        <li><code>POST /api/echo</code> reads a JSON body.</li>
+      </ul>
+    </main>
+  </body>
+</html>

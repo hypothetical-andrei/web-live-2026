@@ -1,0 +1,4 @@
+[
+  { "id": "E-2", "occurredAt": "2026-01-02T10:00:00Z", "active": "false", "durationMs": "20", "debug": true },
+  { "id": "E-1", "occurredAt": "2026-01-01T10:00:00Z", "active": true, "durationMs": 10, "debug": true }
+]
