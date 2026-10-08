@@ -1,0 +1,7 @@
+import assert from 'node:assert/strict'; import test from 'node:test'; import { normalizeEvents, summarizeEvents } from '../src/safe-normalizer.js';
+const valid=[{id:'B',occurredAt:'2026-01-02T00:00:00Z',active:false,durationMs:2,extra:true},{id:'A',occurredAt:'2026-01-01T00:00:00Z',active:true,durationMs:3,extra:true}];
+test('normalizează în ordine înregistrări proiectate noi',()=>assert.deepEqual(normalizeEvents(valid),[{id:'A',occurredAt:'2026-01-01T00:00:00Z',active:true,durationMs:3},{id:'B',occurredAt:'2026-01-02T00:00:00Z',active:false,durationMs:2}]));
+test('respinge formele invalide fără conversie',()=>{ assert.throws(()=>normalizeEvents({}),/events trebuie să fie un tablou/); for(const patch of [{active:'false'},{durationMs:'3'},{durationMs:Infinity},{occurredAt:'not-a-date'}]) assert.throws(()=>normalizeEvents([{...valid[0],...patch}]),/eveniment invalid la indexul 0/); });
+test('respinge câmpurile obligatorii moștenite',()=>{ const inherited=Object.assign(Object.create({active:true}),{id:'I',occurredAt:'2026-01-01T00:00:00Z',durationMs:1}); assert.throws(()=>normalizeEvents([inherited]),/eveniment invalid la indexul 0/); });
+test('sumarizează valori normalizate stricte',()=>assert.deepEqual(summarizeEvents(normalizeEvents(valid)),{activeCount:1,totalDurationMs:5}));
+test('marcajele temporale egale sunt departajate după id',()=>{ const time='2026-01-01T00:00:00Z'; assert.deepEqual(normalizeEvents([{id:'B',occurredAt:time,active:true,durationMs:1},{id:'A',occurredAt:time,active:false,durationMs:1}]).map(x=>x.id),['A','B']); });
