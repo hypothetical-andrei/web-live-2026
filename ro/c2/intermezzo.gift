@@ -1,0 +1,79 @@
+$CATEGORY: Tehnologii Web/Unitatea 02/Intermezzo 1
+
+::u02-i1-language-model::Care descriere se potrivește cel mai bine limbajului JavaScript? {
+=Un limbaj multiparadigmă, centrat pe obiecte, cu funcții de ordin întâi #Corect. Acceptă stiluri procedural, orientat pe obiecte prin prototipuri și funcțional.
+~Un limbaj orientat pe obiecte bazat exclusiv pe clase #Incorect. Modelul său de obiecte se bazează pe prototipuri, iar funcțiile sunt valori de ordin întâi.
+~Un limbaj pur funcțional care împiedică mutația #Incorect. JavaScript permite mutații și efecte.
+~O versiune cu tipare statică a limbajului C #Incorect. Sintaxa familiară nu implică modelul tipurilor din C.
+}
+
+::u02-i1-primitive::Ce valoare este primitivă, deși `typeof` raportează `"object"`? {
+=null #Corect. Acest rezultat istoric al lui `typeof` explică importanța verificărilor exacte pentru null.
+~[] #Incorect. Un tablou este obiect.
+~Un literal-obiect #Incorect. Un literal-obiect creează un obiect.
+~O funcție săgeată #Incorect. O funcție este apelabilă și participă la sistemul de obiecte.
+}
+
+::u02-i1-functions::O funcție JavaScript poate fi stocată într-o variabilă, transmisă altei funcții și întoarsă ca rezultat. {TRUE #Corect. Funcțiile sunt valori apelabile de ordin întâi.}
+
+::u02-i1-async-boundary::Ce subiect este amânat intenționat pentru Cursul 03? {
+=Finalizarea promisiunilor și planificarea async/await #Corect. Cursul 02 stabilește mai întâi mecanismele sincrone ale limbajului.
+~Căutarea proprietăților prin prototip #Incorect. Delegarea prin prototip este un subiect central al Cursului 02.
+~Valori primitive și obiect #Incorect. Modelul tipurilor în execuție aparține Cursului 02.
+~Funcții de ordin superior #Incorect. Funcțiile de ordin întâi și superior aparțin Cursului 02.
+}
+
+$CATEGORY: Tehnologii Web/Unitatea 02/Intermezzo 2
+
+::u02-i2-prototype-lookup::Un obiect nu are proprietatea proprie `priority`, dar prototipul său are `priority: "normal"`. Ce produce `object.priority`? {
+="normal" #Corect. Căutarea nereușită în proprietățile proprii deleagă lanțului de prototipuri.
+~undefined în toate cazurile #Incorect. Undefined apare doar dacă proprietatea lipsește din întregul lanț.
+~O copie a obiectului-prototip #Incorect. Accesul întoarce valoarea găsită, nu un prototip copiat.
+~O eroare de sintaxă #Incorect. Căutarea proprietăților moștenite este comportament JavaScript obișnuit.
+}
+
+::u02-i2-shadowing::Atribuirea unei proprietăți proprii cu aceeași cheie modifică în mod normal proprietatea prototipului. {FALSE #Corect. Noua proprietate proprie ascunde valoarea moștenită fără să rescrie prototipul.}
+
+::u02-i2-class-method::Unde se găsește o metodă obișnuită `describe`, declarată de clasa `Task`? {
+=În Task.prototype, partajată prin căutarea prototipală #Corect. Sintaxa claselor folosește mecanismul prototipurilor JavaScript.
+~Copiată ca proprietate proprie în fiecare instanță #Incorect. Metodele obișnuite ale claselor sunt partajate prin prototip.
+~Într-un sistem separat de clase, fără prototipuri #Incorect. Sintaxa claselor nu înlocuiește căutarea prototipală.
+~În spațiul primitiv al instanței #Incorect. Instanțele sunt obiecte, nu primitive.
+}
+
+::u02-i2-shallow-copy::Un tablou este copiat prin spread, dar ambele tablouri conțin același obiect-sarcină imbricat. Ce efect are modificarea sarcinii prin copie? {
+=Modifică unica sarcină partajată, vizibilă prin ambele tablouri #Corect. Spread a copiat containerul-tablou, nu obiectul imbricat.
+~Modifică doar sarcina tabloului copiat #Incorect. Ambele referințe identifică în continuare același obiect.
+~Copiază automat sarcina în profunzime #Incorect. Spread este superficial.
+~Modifică în schimb prototipul sarcinii #Incorect. Identitatea obiectului imbricat și delegarea prin prototip sunt relații diferite.
+}
+
+$CATEGORY: Tehnologii Web/Unitatea 02/Intermezzo 3
+
+::u02-i3-higher-order::De ce este `tasks.filter(predicate)` o operație de ordin superior? {
+=Primește o valoare-funcție și o apelează pentru elemente #Corect. Primirea unei funcții face ca filter să fie de ordin superior.
+~Schimbă prototipul fiecărei sarcini #Incorect. Filtrarea nu implică modificarea prototipului.
+~Convertește fiecare valoare în număr #Incorect. Predicatul furnizat stabilește comportamentul selecției.
+~Planifică lucru asincron #Incorect. Filter își apelează predicatul sincron.
+}
+
+::u02-i3-closure::Un predicat întors folosește în continuare `owner` din apelul fabricii care l-a creat. Ce mecanism explică acest lucru? {
+=Închiderea lexicală #Corect. Funcția păstrează accesul la legările mediului în care a fost creată.
+~Ascunderea prin prototip #Incorect. Legarea lexicală păstrată nu este o căutare de proprietate.
+~Conversia numerică implicită #Incorect. Nicio conversie numerică nu explică configurația capturată.
+~Finalizarea unei promisiuni #Incorect. Închiderile nu necesită execuție asincronă.
+}
+
+::u02-i3-generated-audit::Un reducer generat începe cu valoarea numerică `0`, apoi adaugă șirul `"3"`. Care este cea mai puternică acțiune de analiză? {
+=Furnizează un contraexemplu cu tipuri mixte și verifică explicit contractul numeric dorit #Corect. Testul poate expune concatenarea și impune formularea contractului.
+~Aprobă-l deoarece reduce este idiomatic #Incorect. Sintaxa familiară nu dovedește corectitudinea tipurilor.
+~Elimină valoarea inițială #Incorect. Aceasta slăbește contractele intrării goale și acumulatorului.
+~Capturează orice eroare și întoarce zero #Incorect. Valorile implicite tăcute ascund date invalide și dovezi de diagnostic.
+}
+
+::u02-i3-error-owner::Unde ar trebui capturată în mod normal o eroare de parsare? {
+=La limita care știe dacă trebuie să reîncerce, să omită, să raporteze sau să oprească #Corect. Recuperarea necesită contextul politicii.
+~În fiecare expresie care ar putea arunca #Incorect. Capturările largi și dispersate distrug sensul util al eșecului.
+~Doar în lanțul de prototipuri #Incorect. Căutarea prototipală nu deține politica de recuperare a aplicației.
+~Printr-un callback asincron neobservat #Incorect. Comportamentul asincron nu este necesar aici, iar un eșec neobservat nu înseamnă recuperare.
+}
