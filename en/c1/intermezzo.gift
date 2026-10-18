@@ -1,0 +1,67 @@
+$CATEGORY: Web Technologies/Unit 01/Intermezzo 1
+
+::u01-i1-fragment::Which URL component is retained by the browser and omitted from the HTTP request target? {
+=The fragment #Correct. The fragment identifies client-side context and is not sent to the server.
+~The path #Incorrect. The path is part of the request target.
+~The query #Incorrect. The query is included in the request target.
+~The authority #Incorrect. The authority identifies the network endpoint.
+}
+
+::u01-i1-message-direction::Where does `201 Created` appear in an HTTP exchange? {
+=In the response status line #Correct. Status codes report the server's response outcome.
+~In the request line #Incorrect. The request line contains method and request target.
+~In the request body #Incorrect. A body carries a representation, not the response status.
+~In the URL fragment #Incorrect. Fragments remain browser-side.
+}
+
+::u01-i1-client-role::Only a web browser can act as an HTTP client. {FALSE #Correct. Curl, tests, servers, and other applications can initiate HTTP requests.}
+
+::u01-i1-optional-field::A server adds an optional response header that an older client does not recognize. When can the older client continue using the simpler contract? {
+=When correct interpretation still depends only on the status, understood fields, and representation #Correct. Optional metadata can extend the exchange without redefining its baseline meaning.
+~Whenever the server secretly requires the new header #Incorrect. A required semantic dependency is not a compatible optional extension.
+~Only when the response has no status code #Incorrect. Every HTTP response has a status code.
+~Only when the unknown header replaces Content-Type #Incorrect. Replacing required representation metadata would break the simpler contract.
+}
+
+$CATEGORY: Web Technologies/Unit 01/Intermezzo 2
+
+::u01-i2-created-contract::Which combination most clearly describes successful resource creation? {
+=Status 201, a Location header, and a representation of the created resource #Correct. The pieces consistently communicate creation.
+~Status 404 and a Location header #Incorrect. A not-found status contradicts successful creation.
+~Status 200 with an unrelated plain-text error #Incorrect. Status and body communicate conflicting outcomes.
+~Status 204 with a JSON response body #Incorrect. A 204 response must not include a message body.
+}
+
+::u01-i2-media-type::A body contains characters that look like JSON but is declared `text/plain`. How should a client initially classify it? {
+=As text #Correct. The declared media type determines representation handling.
+~As JSON because braces override the header #Incorrect. Body appearance does not override Content-Type.
+~As a URL #Incorrect. A representation body is not thereby a resource identifier.
+~As a network failure #Incorrect. A text representation can be a successful response.
+}
+
+::u01-i2-rest-json::Any endpoint returning JSON is automatically RESTful. {FALSE #Correct. JSON is a representation syntax; REST concerns resource and protocol semantics.}
+
+::u01-i2-method-outcome::Which statement correctly separates a request method from a response status? {
+=POST states the requested processing intent; 201 reports that a resource was created #Correct. Method and status belong to different messages and answer different questions.
+~201 states what the client wants the server to do #Incorrect. A status reports the response outcome.
+~GET proves that the server returned 200 #Incorrect. A GET request can produce many response statuses, including 404 or 500.
+~404 is a request method for retrieving missing resources #Incorrect. 404 is a response status.
+}
+
+$CATEGORY: Web Technologies/Unit 01/Intermezzo 3
+
+::u01-i3-task-context::Which item belongs in the context portion of a bounded Gemini task? {
+=The relevant files and the currently observed failure #Correct. Context tells the agent where the behavior lives and what is happening now.
+~Permission to rewrite every file #Incorrect. That removes useful scope constraints.
+~A claim that no verification is necessary #Incorrect. Acceptance needs observable evidence.
+~Only the desired programming language #Incorrect. That may be a constraint, but it is insufficient context.
+}
+
+::u01-i3-independent-gates::An allowed one-file diff is sufficient evidence that the behavior is correct. {FALSE #Correct. Scope review and behavioral verification are separate gates.}
+
+::u01-i3-repair-order::Which AI-assisted sequence produces the strongest evidence for an unfamiliar HTTP project? {
+=Inspect without editing, clarify the tools, state the contract, add and challenge a focused check, request a scoped repair, inspect the diff, rerun checks, and verify independently. #Correct. This separates understanding, test sensitivity, authorized implementation, and acceptance evidence.
+~Regenerate the whole repository and accept the result. #Incorrect. This discards the diagnosis and expands risk.
+~Edit tests until the current output passes. #Incorrect. Weakening evidence does not repair the contract.
+~Ask the agent whether its code is correct and stop. #Incorrect. Self-report is not independent verification.
+}

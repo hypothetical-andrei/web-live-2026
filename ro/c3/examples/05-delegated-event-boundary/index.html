@@ -1,0 +1,52 @@
+<!doctype html>
+<!--
+  Ghid didactic
+
+  Obiectiv: un ascultător pe un strămoș stabil poate interpreta evenimente provenite dintr-o colecție de copii care se schimbă.
+
+  Motivul acestei structuri: pagina face vizibile `target`, `closest`, `currentTarget` și propagarea cu doar două butoane și un ascultător.
+
+  Urmăriți dovezile:
+  - Un click pe `<span>`-ul imbricat identifică în continuare butonul acțiunii.
+  - `event.target` numește elementul de origine.
+  - `event.currentTarget` rămâne lista stabilă care deține ascultătorul.
+  - Identitatea sarcinii provine din `dataset` al celui mai apropiat rând.
+-->
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Limita evenimentului delegat</title>
+  </head>
+  <body>
+    <ul id="tasks">
+      <li data-task-id="t-1">
+        <button type="button" data-action="toggle"><span>Comută prima sarcină</span></button>
+      </li>
+      <li data-task-id="t-2">
+        <button type="button" data-action="delete"><span>Șterge a doua sarcină</span></button>
+      </li>
+    </ul>
+    <output id="result">Alegeți o acțiune</output>
+
+    <script type="module">
+      const list = document.querySelector("#tasks");
+      const result = document.querySelector("#result");
+
+      list.addEventListener("click", (event) => {
+        const action = event.target.closest("[data-action]");
+        const row = event.target.closest("[data-task-id]");
+        if (!action || !row || !list.contains(action)) return;
+
+        result.textContent = [
+          `target=${event.target.tagName}`,
+          `currentTarget=${event.currentTarget.id}`,
+          `action=${action.dataset.action}`,
+          `task=${row.dataset.taskId}`,
+        ].join("; ");
+      });
+
+      document.querySelector("[data-task-id='t-1'] span").click();
+    </script>
+  </body>
+</html>

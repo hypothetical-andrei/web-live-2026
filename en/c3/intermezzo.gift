@@ -1,0 +1,58 @@
+$CATEGORY: Web Technologies/Unit 03/Intermezzo 1
+
+::u03-i1-module-instance::What do two modules importing the same resolved ESM module normally share? {
+=The same evaluated module instance #Correct. A resolved module is evaluated once and its importers observe that instance.
+~A browser global created from every export #Incorrect. ESM exports do not become globals automatically.
+~A new private copy for every import statement #Incorrect. Imports do not reevaluate the module per statement.
+~All local variables from every importer #Incorrect. Importers retain their own private lexical bindings.
+}
+
+::u03-i1-await::What does `await` pause? {
+~Every promise in the module #Incorrect. It observes one awaited value at that point.
+=Execution of the current async function #Correct. Its statements after await run later; the calling code can continue in the meantime.
+~The entire browser thread until the network finishes #Incorrect. Await does not block the browser thread.
+~All event listeners on the page #Incorrect. Other scheduled events can still run.
+}
+
+::u03-i1-async-return::An `async` function always returns a promise to its caller. {TRUE #Incorrect. Plain returned values fulfill that promise, while thrown errors reject it. #Correct. Plain returned values fulfill that promise, while thrown errors reject it.}
+
+$CATEGORY: Web Technologies/Unit 03/Intermezzo 2
+
+::u03-i2-parallel-shape::Three requests are independent. Which code shape starts them concurrently? {
+=Create all three promises first, then await them with `Promise.all`. #Correct. No request waits for an unrelated result before starting.
+~Use a longer timeout for the first request. #Incorrect. Timeout length does not create concurrency.
+~Place three awaited calls in three consecutive statements. #Incorrect. Each later call starts only after the earlier wait.
+~Await the first request before calling the second. #Incorrect. That serializes independent work.
+}
+
+::u03-i2-fetch-404::How does native `fetch` normally settle when the server returns an HTTP 404 response? {
+~It fulfills and automatically parses the error JSON. #Incorrect. Body parsing is a separate explicit step.
+=It fulfills with a Response whose success flag is false. #Correct. Application code must classify the HTTP status.
+~It retries until a 2xx response arrives. #Incorrect. Fetch has no automatic status retry policy.
+~It always rejects as a network error. #Incorrect. An HTTP response was successfully obtained.
+}
+
+::u03-i2-controller-retry::A retry policy should reuse the same aborted `AbortController` for its next attempt. {FALSE #Incorrect. An aborted controller remains aborted; create a fresh controller per attempt. #Correct. An aborted controller remains aborted; create a fresh controller per attempt.}
+
+$CATEGORY: Web Technologies/Unit 03/Intermezzo 3
+
+::u03-i3-event-target::A delegated click listener is attached to a list, while a nested span is clicked. What is `event.currentTarget`? {
+=The list that owns the running listener #Correct. Current target identifies the listener boundary.
+~The nested span where the click began #Incorrect. That is the event target.
+~The document in every bubbling listener #Incorrect. Current target changes to the owner of each running listener.
+~The nearest button automatically #Incorrect. Code may find it with `closest`, but it is not currentTarget.
+}
+
+::u03-i3-text-content::Why prefer `textContent` when rendering untrusted task titles? {
+=It inserts text without interpreting the title as HTML. #Correct. This keeps data out of the markup parsing boundary.
+~It creates one listener per word. #Incorrect. It only sets textual content.
+~It automatically fetches missing text. #Incorrect. It has no network behavior.
+~It permanently freezes the DOM node. #Incorrect. The node can still be updated.
+}
+
+::u03-i3-stale-result::Request B supersedes request A, but A finishes last. What must the controller prevent? {
+~All promise fulfillment callbacks #Incorrect. The current result still needs to render.
+~Event bubbling from the request button #Incorrect. Event propagation does not determine which request result should be displayed.
+~B from starting until A has rendered #Incorrect. That serializes work and may preserve stale behavior.
+=A from overwriting the UI state produced for the newer request B #Correct. An older result must not replace the result of the current request.
+}

@@ -1,0 +1,26 @@
+# Teaching guide
+#
+# Goal: An HTTP exchange contains two distinct messages whose methods, headers, status, and body must not be mixed together.
+#
+# Why this design: The compact trace makes the client/server boundary visible before any server implementation details are introduced.
+#
+# Follow the evidence:
+# - The method and request `Content-Type` belong to the request.
+# - The status and `Location` belong to the response.
+# - `Example-Trace-Id` is optional extension metadata; the representation remains usable without it.
+# - Both messages can carry JSON, but the bodies have different roles.
+
+POST /api/notes HTTP/1.1
+Host: course.example
+Content-Type: application/json
+Content-Length: 20
+
+{"text":"Read diff"}
+
+HTTP/1.1 201 Created
+Content-Type: application/json
+Location: /api/notes/n-7
+Example-Trace-Id: trace-create-7
+Content-Length: 31
+
+{"id":"n-7","text":"Read diff"}

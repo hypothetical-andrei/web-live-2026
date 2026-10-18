@@ -1,0 +1,58 @@
+$CATEGORY: Web Technologies/Unitatea 03/Intermezzo 1
+
+::u03-i1-module-instance::Ce folosesc în comun, în mod normal, două module care importă același modul ESM rezolvat? {
+=Aceeași instanță evaluată a modulului #Corect. Un modul rezolvat este evaluat o singură dată, iar importatorii observă acea instanță.
+~O variabilă globală în browser pentru fiecare export #Incorect. Exporturile ESM nu devin automat globale.
+~O copie privată nouă pentru fiecare instrucțiune import #Incorect. Importurile nu reevaluează modulul pentru fiecare instrucțiune.
+~Toate variabilele locale ale fiecărui importator #Incorect. Importatorii își păstrează propriile legături lexicale private.
+}
+
+::u03-i1-await::Ce suspendă `await`? {
+~Toate promisiunile din modul #Incorect. În acel punct observă o singură valoare așteptată.
+=Execuția funcției async curente #Corect. Instrucțiunile de după await rulează ulterior; între timp, codul apelant poate continua.
+~Întregul fir al browserului până la terminarea cererii de rețea #Incorect. Await nu blochează firul browserului.
+~Toți ascultătorii de evenimente din pagină #Incorect. Alte evenimente planificate pot rula în continuare.
+}
+
+::u03-i1-async-return::O funcție `async` returnează întotdeauna apelantului o promisiune. {TRUE #Incorect. Valorile returnate direct îndeplinesc promisiunea, iar erorile aruncate o resping. #Corect. Valorile returnate direct îndeplinesc promisiunea, iar erorile aruncate o resping.}
+
+$CATEGORY: Web Technologies/Unitatea 03/Intermezzo 2
+
+::u03-i2-parallel-shape::Trei cereri sunt independente. Ce structură de cod le pornește concurent? {
+=Creează mai întâi toate cele trei promisiuni, apoi le așteaptă cu `Promise.all`. #Corect. Nicio cerere nu așteaptă rezultatul unei operații independente înainte să pornească.
+~Folosește un timeout mai mare pentru prima cerere. #Incorect. Durata timeoutului nu produce concurență.
+~Pune trei apeluri cu await în trei instrucțiuni consecutive. #Incorect. Fiecare apel ulterior pornește numai după așteptarea precedentă.
+~Așteaptă prima cerere înainte de a o apela pe a doua. #Incorect. Aceasta serializează operații independente.
+}
+
+::u03-i2-fetch-404::Cum se finalizează în mod normal `fetch` când serverul returnează un răspuns HTTP 404? {
+~Se îndeplinește și parsează automat JSON-ul erorii. #Incorect. Parsarea corpului este un pas explicit separat.
+=Se îndeplinește cu un Response al cărui indicator de succes este fals. #Corect. Codul aplicației trebuie să clasifice starea HTTP.
+~Reîncearcă până primește un răspuns 2xx. #Incorect. Fetch nu are o politică automată de reîncercare în funcție de stare.
+~Este întotdeauna respinsă ca eroare de rețea. #Incorect. Un răspuns HTTP a fost primit cu succes.
+}
+
+::u03-i2-controller-retry::O politică de reîncercare ar trebui să refolosească același `AbortController` anulat la următoarea încercare. {FALSE #Incorect. Un controller anulat rămâne anulat; creați unul nou pentru fiecare încercare. #Corect. Un controller anulat rămâne anulat; creați unul nou pentru fiecare încercare.}
+
+$CATEGORY: Web Technologies/Unitatea 03/Intermezzo 3
+
+::u03-i3-event-target::Un ascultător delegat pentru click este atașat unei liste, iar utilizatorul apasă pe un span imbricat. Ce reprezintă `event.currentTarget`? {
+=Lista care deține ascultătorul aflat în execuție #Corect. Current target identifică limita ascultătorului.
+~Span-ul imbricat de unde a pornit clickul #Incorect. Acela este event target.
+~Documentul, pentru orice ascultător din faza de bubbling #Incorect. Current target se schimbă la proprietarul fiecărui ascultător aflat în execuție.
+~Cel mai apropiat buton, în mod automat #Incorect. Codul îl poate găsi cu `closest`, dar acesta nu devine currentTarget.
+}
+
+::u03-i3-text-content::De ce este preferabil `textContent` pentru afișarea titlurilor de sarcini care nu sunt de încredere? {
+=Inserează textul fără să interpreteze titlul ca HTML. #Corect. Astfel, datele rămân în afara limitei de parsare a marcajului.
+~Creează câte un ascultător pentru fiecare cuvânt. #Incorect. Doar setează conținut textual.
+~Descarcă automat textul lipsă. #Incorect. Nu are comportament de rețea.
+~Blochează permanent nodul DOM. #Incorect. Nodul poate fi actualizat în continuare.
+}
+
+::u03-i3-stale-result::Cererea B înlocuiește cererea A, dar A se termină ultima. Ce trebuie să împiedice controllerul? {
+~Toate callbackurile de îndeplinire a promisiunilor #Incorect. Rezultatul curent trebuie afișat în continuare.
+~Propagarea evenimentului de la butonul cererii #Incorect. Propagarea evenimentelor nu determină ce rezultat al cererii trebuie afișat.
+~Ca B să pornească înainte ca A să fie randată #Incorect. Aceasta serializează operațiile și poate păstra comportamentul învechit.
+=Ca A să suprascrie starea interfeței produsă pentru cererea B, care este mai nouă #Corect. Un rezultat mai vechi nu trebuie să înlocuiască rezultatul cererii curente.
+}

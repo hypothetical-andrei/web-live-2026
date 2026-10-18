@@ -1,0 +1,52 @@
+<!doctype html>
+<!--
+  Teaching guide
+
+  Goal: One listener on a stable ancestor can interpret events originating in a changing child collection.
+
+  Why this design: The page makes `target`, `closest`, `currentTarget`, and bubbling visible with only two buttons and one listener.
+
+  Follow the evidence:
+  - Clicking the nested `<span>` still resolves the containing action button.
+  - `event.target` names the originating element.
+  - `event.currentTarget` remains the stable list that owns the listener.
+  - Task identity comes from the closest row's `dataset`.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Delegated event boundary</title>
+  </head>
+  <body>
+    <ul id="tasks">
+      <li data-task-id="t-1">
+        <button type="button" data-action="toggle"><span>Toggle first</span></button>
+      </li>
+      <li data-task-id="t-2">
+        <button type="button" data-action="delete"><span>Delete second</span></button>
+      </li>
+    </ul>
+    <output id="result">Click an action</output>
+
+    <script type="module">
+      const list = document.querySelector("#tasks");
+      const result = document.querySelector("#result");
+
+      list.addEventListener("click", (event) => {
+        const action = event.target.closest("[data-action]");
+        const row = event.target.closest("[data-task-id]");
+        if (!action || !row || !list.contains(action)) return;
+
+        result.textContent = [
+          `target=${event.target.tagName}`,
+          `currentTarget=${event.currentTarget.id}`,
+          `action=${action.dataset.action}`,
+          `task=${row.dataset.taskId}`,
+        ].join("; ");
+      });
+
+      document.querySelector("[data-task-id='t-1'] span").click();
+    </script>
+  </body>
+</html>

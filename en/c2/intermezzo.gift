@@ -1,0 +1,79 @@
+$CATEGORY: Web Technologies/Unit 02/Intermezzo 1
+
+::u02-i1-language-model::Which description best fits JavaScript? {
+=A multi-paradigm, object-centric language with first-class functions #Correct. It supports procedural, prototype-based object-oriented, and functional styles.
+~A purely class-based object-oriented language #Incorrect. Its object model is prototype-based and functions are first-class values.
+~A purely functional language that prevents mutation #Incorrect. JavaScript permits mutation and effects.
+~A statically typed version of C #Incorrect. Familiar syntax does not imply C's runtime type model.
+}
+
+::u02-i1-primitive::Which value is a primitive even though `typeof` reports `"object"`? {
+=null #Correct. This historical `typeof` result is why exact null checks matter.
+~[] #Incorrect. An array is an object.
+~An object literal #Incorrect. An object literal creates an object.
+~An arrow function #Incorrect. A function is callable and participates in the object system.
+}
+
+::u02-i1-functions::A JavaScript function can be stored in a variable, passed to another function, and returned as a result. {TRUE #Correct. Functions are first-class callable values.}
+
+::u02-i1-async-boundary::Which topic is deliberately deferred to Lecture 03? {
+=Promise settlement and async/await scheduling #Correct. Lecture 02 establishes synchronous language mechanics first.
+~Prototype property lookup #Incorrect. Prototype delegation is a core Lecture 02 topic.
+~Primitive and object values #Incorrect. The runtime type model belongs in Lecture 02.
+~Higher-order functions #Incorrect. First-class and higher-order functions belong in Lecture 02.
+}
+
+$CATEGORY: Web Technologies/Unit 02/Intermezzo 2
+
+::u02-i2-prototype-lookup::An object has no own `priority` property, but its prototype has `priority: "normal"`. What does `object.priority` produce? {
+="normal" #Correct. Missing own-property lookup delegates to the prototype chain.
+~undefined in every case #Incorrect. Undefined appears only if the complete lookup chain lacks the property.
+~A copy of the prototype object #Incorrect. Property access returns the located value, not a copied prototype.
+~A syntax error #Incorrect. Inherited property lookup is ordinary JavaScript behavior.
+}
+
+::u02-i2-shadowing::Assigning an own property with the same key normally changes the prototype's property. {FALSE #Correct. The new own property shadows the inherited value without rewriting the prototype.}
+
+::u02-i2-class-method::Where is a normal `describe` method declared by a class named `Task` found? {
+=On Task.prototype, shared through prototype lookup #Correct. Class syntax uses JavaScript's prototype mechanism.
+~Copied as an own property onto every instance #Incorrect. Normal class methods are shared on the prototype.
+~In a separate class system with no prototypes #Incorrect. Class syntax does not replace prototype lookup.
+~Inside the instance's primitive storage #Incorrect. Instances are objects, not primitives.
+}
+
+::u02-i2-shallow-copy::An array is copied with spread, but both arrays contain the same nested task object. What does changing that task through the copy do? {
+=It changes the one shared task visible through both arrays #Correct. Spread copied the array container, not its nested object.
+~It changes only the copied array's task #Incorrect. Both element references still identify one object.
+~It deep-copies the task automatically #Incorrect. Spread is shallow.
+~It changes the task's prototype instead #Incorrect. Nested object identity and prototype delegation are separate relationships.
+}
+
+$CATEGORY: Web Technologies/Unit 02/Intermezzo 3
+
+::u02-i3-higher-order::Why is `tasks.filter(predicate)` a higher-order operation? {
+=It receives a function value and invokes it for elements #Correct. Accepting a function makes filter higher-order.
+~It changes every task's prototype #Incorrect. Filtering does not imply prototype mutation.
+~It converts every value to a number #Incorrect. The supplied predicate determines selection behavior.
+~It schedules asynchronous work #Incorrect. Filter calls its predicate synchronously.
+}
+
+::u02-i3-closure::A returned predicate still uses `owner` from the factory call that created it. What mechanism explains this? {
+=Lexical closure #Correct. The function retains access to bindings from its creation environment.
+~Prototype shadowing #Incorrect. The retained lexical binding is not a property lookup.
+~Implicit numeric coercion #Incorrect. No numeric conversion explains captured configuration.
+~Promise settlement #Incorrect. Closures do not require asynchronous execution.
+}
+
+::u02-i3-generated-audit::A generated reducer starts with numeric `0` and then adds string `"3"`. What is the strongest review action? {
+=Supply a mixed-type counterexample and assert the intended numeric contract #Correct. The test can expose string concatenation and force the contract to be stated.
+~Approve it because reduce is idiomatic #Incorrect. Familiar syntax does not prove type correctness.
+~Remove the initial value #Incorrect. That weakens the empty-input and accumulator contract.
+~Catch every error and return zero #Incorrect. Silent defaults conceal invalid data and diagnostic evidence.
+}
+
+::u02-i3-error-owner::Where should a parsing failure normally be caught? {
+=At the boundary that knows whether to retry, skip, report, or stop #Correct. Recovery requires policy context.
+~Inside every expression that might throw #Incorrect. Scattered broad catches destroy useful failure meaning.
+~Only inside the prototype chain #Incorrect. Prototype lookup does not own application recovery policy.
+~By an unobserved async callback #Incorrect. Async behavior is not required here and unobserved failure is not recovery.
+}
