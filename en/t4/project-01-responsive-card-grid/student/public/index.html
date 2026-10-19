@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Tool Catalog</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Web lab tools</h1>
+      <form class="filters">
+        <label for="topic">Topic</label>
+        <select id="topic">
+          <option>All</option>
+          <option>HTTP</option>
+          <option>Browser</option>
+        </select>
+        <button>Apply</button>
+      </form>
+    </header>
+
+    <main>
+      <ul class="card-grid">
+        <li>
+          <article class="card">
+            <div class="card-media" aria-hidden="true"></div>
+            <h2>Request inspector</h2>
+            <p>Compare methods, headers, status codes, and representations.</p>
+            <a href="#inspector">Open tool</a>
+          </article>
+        </li>
+        <li>
+          <article class="card">
+            <div class="card-media" aria-hidden="true"></div>
+            <h2>Dataset transformer with an intentionally longer name</h2>
+            <p>Trace values through a deterministic pipeline.</p>
+            <a href="#dataset">Open tool</a>
+          </article>
+        </li>
+        <li>
+          <article class="card">
+            <div class="card-media" aria-hidden="true"></div>
+            <h2>Event explorer</h2>
+            <p>
+              Observe target, bubbling, and listener boundaries in a changing
+              tree.
+            </p>
+            <a href="#events">Open tool</a>
+          </article>
+        </li>
+        <li>
+          <article class="card">
+            <div class="card-media" aria-hidden="true"></div>
+            <h2>Retry lab</h2>
+            <p>Inspect attempts and cleanup.</p>
+            <a href="#retry">Open tool</a>
+          </article>
+        </li>
+      </ul>
+    </main>
+
+    <script type="module">
+      if (new URLSearchParams(location.search).has("browser-smoke")) {
+        import("/browser-smoke.js");
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+const main = document.querySelector("main");
+const nav = document.querySelector("nav");
+const notice = document.querySelector(".notice");
+const button = document.querySelector("button");
+const cards = [...document.querySelectorAll(".cards article")];
+button.focus();
+const columns = getComputedStyle(main).gridTemplateColumns.split(" ").filter(Boolean).length;
+const checks = { columns, normalFlow: getComputedStyle(nav).position === "static", notice: getComputedStyle(notice).color === "rgb(23, 32, 51)" && getComputedStyle(notice).backgroundColor === "rgb(220, 233, 255)", cardsVisible: cards.every((card) => card.scrollHeight <= card.clientHeight), focusVisible: parseFloat(getComputedStyle(button).outlineWidth) >= 3 };
+document.documentElement.dataset.columns = String(columns);
+document.documentElement.dataset.browserSmoke = Object.values(checks).every(Boolean) ? "pass" : "fail";

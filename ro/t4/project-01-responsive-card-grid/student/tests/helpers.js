@@ -1,0 +1,1 @@
+import{readFile}from'node:fs/promises';export const css=await readFile(new URL('../public/styles.css',import.meta.url),'utf8');export const html=await readFile(new URL('../public/index.html',import.meta.url),'utf8');

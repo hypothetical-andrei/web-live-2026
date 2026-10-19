@@ -1,0 +1,1 @@
+import assert from'node:assert/strict';import test from'node:test';import{validateEnrollment}from'../public/form-validation.js';test('validation does not mutate input',()=>{const input=Object.freeze({name:' Ada ',email:'a@b.co',track:'backend',terms:true});validateEnrollment(input);assert.equal(input.name,' Ada ')});

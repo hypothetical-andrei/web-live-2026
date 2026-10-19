@@ -1,0 +1,1 @@
+body{font-family:system-ui,sans-serif;max-width:36rem;margin:2rem auto;padding:1rem}form{display:grid;gap:.5rem}fieldset{display:grid;gap:.5rem}.error{min-height:1.2em;color:#a00;margin:0}[aria-invalid="true"]{outline:2px solid #a00}#error-summary{border:2px solid #a00;padding:1rem;margin-bottom:1rem}:focus-visible{outline:3px solid #175cd3;outline-offset:2px}

@@ -1,0 +1,1 @@
+import{readFile}from'node:fs/promises';export const legacy=await readFile(new URL('../public/legacy-generated.css',import.meta.url),'utf8');export const repair=await readFile(new URL('../public/repair.css',import.meta.url),'utf8');export const styles=await readFile(new URL('../public/styles.css',import.meta.url),'utf8');

@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Catalog de instrumente</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>Instrumente pentru laboratorul web</h1>
+      <form class="filters">
+        <label for="topic">Subiect</label>
+        <select id="topic">
+          <option>Toate</option>
+          <option>HTTP</option>
+          <option>Browser</option>
+        </select>
+        <button>Aplică</button>
+      </form>
+    </header>
+
+    <main>
+      <ul class="card-grid">
+        <li>
+          <article class="card">
+            <div class="card-media" aria-hidden="true"></div>
+            <h2>Inspector de cereri</h2>
+            <p>Compară metode, antete, coduri de stare și reprezentări.</p>
+            <a href="#inspector">Deschide instrumentul</a>
+          </article>
+        </li>
+        <li>
+          <article class="card">
+            <div class="card-media" aria-hidden="true"></div>
+            <h2>Transformator de date cu un nume intenționat mai lung</h2>
+            <p>Urmărește valorile printr-un flux determinist.</p>
+            <a href="#dataset">Deschide instrumentul</a>
+          </article>
+        </li>
+        <li>
+          <article class="card">
+            <div class="card-media" aria-hidden="true"></div>
+            <h2>Explorator de evenimente</h2>
+            <p>
+              Observă ținta, propagarea și limitele ascultătorilor într-un
+              arbore schimbător.
+            </p>
+            <a href="#events">Deschide instrumentul</a>
+          </article>
+        </li>
+        <li>
+          <article class="card">
+            <div class="card-media" aria-hidden="true"></div>
+            <h2>Laborator de reîncercare</h2>
+            <p>Examinează încercările și curățarea.</p>
+            <a href="#retry">Deschide instrumentul</a>
+          </article>
+        </li>
+      </ul>
+    </main>
+
+    <script type="module">
+      if (new URLSearchParams(location.search).has("browser-smoke")) {
+        import("/browser-smoke.js");
+      }
+    </script>
+  </body>
+</html>

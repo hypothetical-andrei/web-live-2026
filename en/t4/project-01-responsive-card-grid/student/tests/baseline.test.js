@@ -1,0 +1,1 @@
+import assert from'node:assert/strict';import test from'node:test';import{html}from'./helpers.js';test('fixed markup is semantic and complete',()=>{for(const pattern of [/<header/,/<main/,/<form/,/<ul/,/<article/,/<label/])assert.match(html,pattern);assert.equal((html.match(/<article/g)??[]).length,4)});

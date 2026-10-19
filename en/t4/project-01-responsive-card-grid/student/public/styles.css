@@ -1,0 +1,11 @@
+:root {
+  --canvas: #f3f5f8;
+  --surface: #fff;
+  --ink: #172033;
+  --accent: #175cd3;
+  --border: #c8d0dc;
+  --space: 1rem;
+  --radius: 0.75rem;
+}
+
+/* TODO: reconstruct the responsive layout described in visual-spec.md. */
