@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <script>
+            const handleClick = (evt) => {
+                console.log('hello123')
+            }
+
+            // this will not work in this position
+            const b1 = document.getElementById('b1')
+
+            b1.onclick = handleClick
+        </script>
+
+    </head>
+    <body>
+        <input type="button" value="click me!" id="b1">
+    </body>
+</html>

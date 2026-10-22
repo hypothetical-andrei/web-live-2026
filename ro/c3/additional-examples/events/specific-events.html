@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Types Example</title>
+</head>
+<body>
+
+  <h1>Event Example: Mouse vs Keyboard</h1>
+
+  <p>Click anywhere in this box or press a key:</p>
+  <div id="eventArea" tabindex="0" style="width:300px;height:150px;border:1px solid black;"></div>
+
+  <p id="output">Event info will appear here.</p>
+
+  <script>
+    window.onload = function() {
+      const area = document.getElementById('eventArea')
+      const output = document.getElementById('output')
+
+      // Mouse event
+      area.addEventListener('click', function(e) {
+        output.textContent = `Mouse click at (x: ${e.clientX}, y: ${e.clientY})`
+      })
+
+      // Keyboard event
+      area.addEventListener('keydown', function(e) {
+        output.textContent =
+          `Key pressed: ${e.key} (code: ${e.code})` +
+          (e.shiftKey ? ' [Shift]' : '') +
+          (e.ctrlKey ? ' [Ctrl]' : '') +
+          (e.altKey ? ' [Alt]' : '')
+      })
+    }
+  </script>
+
+</body>
+</html>

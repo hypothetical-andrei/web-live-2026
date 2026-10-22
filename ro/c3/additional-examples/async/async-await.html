@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+			function f0(){
+				return new Promise((resolve,reject) => {
+					setTimeout(() => resolve('result for f0'), 100)
+				})
+			}
+			function f1(){
+				return new Promise((resolve,reject) => {
+					setTimeout(() => resolve('result for f1'), 100)
+				})
+			}
+			function f3(){
+				return new Promise((resolve,reject) => {
+					setTimeout(() => resolve('result for f3'), 100)
+				})
+			}
+			function f2(){
+				return new Promise((resolve,reject) => {
+					setTimeout(() => reject('error for f2'), 100)
+				})
+			}
+
+			let main = async () => {
+				console.warn('here')
+				try {
+					let r = await f0()
+					console.warn(r)
+					r = await f1()
+					console.warn(r)
+					r = await f2()
+					console.warn(r)
+					r = await f3()
+					console.warn(r)
+				}
+				catch(e){
+					console.warn('an error has occured')
+					console.warn(e)
+				}
+			}
+
+			main()
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>

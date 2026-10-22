@@ -1,0 +1,38 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="module">
+        function f (n, success, error) {
+            if (n % 2 === 0) {
+                success(n / 2)
+            } else {
+                error(new Error('not even even'))
+            }
+        }
+
+        function promisified (n) {
+            return new Promise((resolve, reject) => {
+                f (n, (result) => {
+                    resolve(result)
+                }, (error) => {
+                    reject(error)
+                })   
+            })
+        }
+
+        try {
+            let result = await promisified(2)
+            console.log(result)
+            result = await promisified(3)
+            console.log(result)
+        } catch (error) {
+            console.log(error)
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

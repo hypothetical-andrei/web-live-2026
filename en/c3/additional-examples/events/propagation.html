@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+			window.onload = () => {
+				// document.getElementById('d1').addEventListener('click', () =>{
+				// 	console.log('clicked d1')
+				// })
+				document.getElementById('d1').onclick = (event) =>{
+					console.log('clicked d1')
+				}
+				document.getElementById('d2').addEventListener('click', (event) =>{
+					console.log('clicked d2')
+					event.stopPropagation()
+				})
+				document.getElementById('d3').addEventListener('click', () =>{
+					console.log('clicked d3')
+				})
+			}
+		</script>
+	</head>
+	<body>
+		<div id=d1>
+			<div id=d2>
+				<div id=d3>some text</div>
+			</div>
+		</div>
+	</body>
+</html>

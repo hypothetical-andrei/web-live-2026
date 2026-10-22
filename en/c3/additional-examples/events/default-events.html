@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+			window.onload = () => {
+				document.querySelector('#a1').addEventListener('click', (e) => {
+					e.preventDefault()
+					console.log("nope")
+					return false
+				})
+			}
+		</script>
+	</head>
+	<body>
+		<a id=a1 href="http://andrei.ase.ro">Click me</a>
+	</body>
+</html>

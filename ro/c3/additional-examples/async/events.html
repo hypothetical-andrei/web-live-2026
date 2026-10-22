@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+			function f0(){
+				setTimeout(() => {
+					let e = new Event('task_complete')
+					e.result = 'result for f0'
+					window.dispatchEvent(e)
+				}, 100)
+			}
+			f0()
+			window.addEventListener('task_complete', (event) => {
+				console.log(event.result)
+				console.log('next')
+			})
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>

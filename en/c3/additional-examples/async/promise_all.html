@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+			function f0(){
+				return new Promise((resolve,reject) => {
+					setTimeout(() => resolve('result for f0'), 300)
+				})
+			}
+			function f1(){
+				return new Promise((resolve,reject) => {
+					setTimeout(() => resolve('result for f1'), 200)
+				})
+			}
+			function f2(){
+				return new Promise((resolve,reject) => {
+					setTimeout(() => resolve('result for f2'), 100)
+				})
+			}
+			
+			Promise.all([f0(),f1(),f2()])
+				.then((results) => {
+					console.log('all done')
+					console.log(results)
+				})
+
+			Promise.race([f0(),f1(),f2()])
+				.then((results) => {
+					console.log('one done')
+					console.log(results)
+				})
+		</script>
+	</head>
+	<body>
+
+	</body>
+</html>

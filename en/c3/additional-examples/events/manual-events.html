@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script type="text/javascript">
+			window.onload = () => {
+				let d1 = document.querySelector('#d1')
+				d1.addEventListener('alarm', (event) => {
+					console.log('i am now alarmed')
+				})
+				document.querySelector('#d2').addEventListener('click', () => {
+					let event = new Event('alarm')
+					d1.dispatchEvent(event)
+				})
+			}
+		</script>
+	</head>
+	<body>
+		<div id=d1>don't click me</div>
+		<div id=d2>click me!</div>
+	</body>
+</html>

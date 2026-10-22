@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <script>
+            window.onload = () => {
+                
+                const b1 = document.getElementById('b1')
+                
+                const t1 = document.getElementById('t1')
+                
+                const handleClick = (evt) => {
+                    console.log('hello')
+                    console.log(t1.value)
+                    t1.value = 'again'
+                }
+
+                b1.addEventListener('click', handleClick)
+            }
+        </script>
+    </head>
+    <body>
+        <input type="text" value="fill me in!" id="t1">
+        <input type="button" value="click me!" id="b1">
+    </body>
+</html>
