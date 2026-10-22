@@ -1,72 +1,73 @@
-# Specificația exercițiului — Provocare de remediere CSS
+# Exercise Specification — CSS Repair Challenge
 
-## Unitate
+## Unit
 
-Unitatea 04 — HTML, CSS, interfețe responsive și accesibilitate
+Unit 04 — HTML, CSS, Responsive UI and Accessibility
 
-## Obiectiv de învățare
+## Learning objective
 
-Diagnostichează defectele de aranjare și cascadă dintr-o foaie generată păstrată și repară-le printr-un strat mic cu prioritate superioară, nu prin creșterea specificității sau rescrierea markup-ului.
+Find the CSS rules causing the supplied page to look wrong. Correct them in a small `repair` layer without changing the HTML or original stylesheet.
 
-## Context inițial
+## Starting context
 
-Ai primit HTML semantic fix, `legacy-generated.css` cu defecte documentate, o foaie pentru ordinea straturilor, `repair.css` incomplet, server static, criterii vizuale și verificări.
+Work in `student/`. You have the HTML, the deliberately faulty `public/legacy-generated.css`, a stylesheet that declares layer order, a static server, tests, and an unfinished `public/repair.css`. Only the last file is yours to edit.
 
-## Comportament necesar
+## Required behavior
 
-- Navigarea rămâne în flux normal, se împachetează la lățimi înguste și nu acoperă titlul principal.
-- Conținutul folosește Grid sidebar/conținut peste 48rem și o coloană sub acest prag.
-- `.notice` folosește paleta accesibilă închis-pe-pal în ciuda regulii vechi `#app .notice`.
-- Butoanele păstrează focus vizibil și nu se micșorează sub conținut.
-- Cardurile au înălțime determinată de conținut, fără tăiere sau înălțime fixă forțată.
-- Fișierul de remediere conține doar suprascrieri țintite în stratul `repair` declarat.
+- Keep navigation in normal flow, above the main heading. Its links must wrap on narrow screens rather than cover content.
+- Show one content column below 48rem. From 48rem onward, show a sidebar and main content column.
+- Give `.notice` dark text on a pale background even though the original stylesheet uses the more specific `#app .notice` selector. The required colors are `#172033` for text and `#dce9ff` for the background.
+- Keep buttons wide enough for their contents and show a visible keyboard-focus indicator.
+- Let cards grow to fit their text. Do not clip the text or force a fixed height.
+- Put only the necessary corrections inside the existing `repair` layer.
 
-## Restricții
+## Constraints
 
-- Modifică doar `public/repair.css`; păstrează CSS-ul vechi și HTML-ul.
-- Folosește straturi și selectori potriviți; fără `!important`, stiluri inline, ID-uri adăugate pentru specificitate, overflow ascuns sau duplicarea foii complete.
-- Un breakpoint la 48rem.
+- Change only `public/repair.css`. Keep the HTML and original CSS unchanged.
+- Use the supplied layer order. Do not use `!important`, inline styles, ID selectors, hidden overflow, or a copy of the entire original stylesheet.
+- Use one breakpoint, at 48rem.
 
-## Criterii observabile de finalizare
+## Observable completion criteria
 
-- La 390 px, navigarea se împachetează deasupra titlului, iar conținutul are o coloană.
-- La 1024 px, proporțiile sidebar/conținut sunt stabile, iar cardurile cresc odată cu conținutul.
-- Culorile calculate ale mesajului provin din stratul de remediere.
-- Focusul prin tastatură este vizibil; verificările trec; diferența este un singur fișier.
+- At 390 px, navigation wraps above the heading and the content has one column.
+- At 1024 px, the sidebar and main content are side by side and the cards show all their text.
+- DevTools shows that the notice colors come from your repair layer.
+- Tab navigation shows which button has focus.
+- All checks pass, and only `public/repair.css` differs from the starting project.
 
-## Plan de validare
+## Validation plan (for course authors)
 
-### Verificări de bază
+### Baseline checks
 
-- Artefactul vechi conține reproductibil navigare fixă, mesaj foarte specific și carduri cu înălțime fixă.
-- HTML-ul, serverul și ordinea straturilor sunt intacte.
+- Legacy artifact reproducibly contains fixed nav, high-specificity notice, and fixed-height cards.
+- HTML/server/layer order are intact.
 
-### Verificări de obiectiv
+### Objective checks
 
-- Stratul de remediere restabilește navigarea în flux cu împachetare, aranjarea cu una/două coloane, paleta mesajului, înălțimea după conținut și focusul.
-- Există breakpoint-ul exact de 48rem.
+- Repair layer restores normal-flow wrapping nav, one/two-column layout, notice palette, content height, and focus.
+- Exact 48rem breakpoint exists.
 
-### Verificări de regresie
+### Regression checks
 
-- Fără `!important`, selector ID, overflow ascuns, înălțime fixă de card sau schimbări HTML/CSS vechi.
-- Remedierea rămâne mult mai mică decât foaia veche.
+- No `!important`, ID selector, overflow hiding, fixed card height, or HTML/legacy changes.
+- Repair remains substantially smaller than legacy CSS.
 
-### Verificări în browser
+### Browser checks
 
-- Chrome headless măsoară fluxul normal, 1/2 coloane Grid calculate, culorile reparate, cardurile netăiate și conturul butonului focalizat la 390/1024 px.
+- Headless Chrome measures normal flow, 1/2 computed Grid columns, repaired notice colors, unclipped cards, and the focused-button outline at 390/1024 px.
 
-## Sarcina ta
+## Your task
 
-Trebuie să adaugi corecții precise în `public/repair.css`. Fișierul inițial conține declarația stratului `repair` și un TODO. Foaia de stil originală păstrează intenționat defectele pentru a le putea inspecta. Identifică declarațiile aplicate și cauzele de layout, apoi adaugă doar regulile necesare pentru îndeplinirea cerințelor.
+Fill in the existing `repair` layer in `public/repair.css`. For each problem, inspect the winning declaration in DevTools, identify its effect, and add the correction needed to meet the requirements. Keep the original mistakes in `legacy-generated.css` so you can compare them with your corrections.
 
-## Sarcină pentru Codex
+## Codex task
 
-> Examinează stilurile calculate, `legacy-generated.css`, ordinea straturilor și verificările eșuate. Repară doar `repair.css` în stratul existent. Restabilește fluxul normal, Grid responsive, culorile mesajului, înălțimea intrinsecă și focusul la breakpoint-ul exact. Nu modifica HTML/CSS-ul vechi și nu folosi `!important`, ID-uri, overflow ascuns sau înălțimi fixe. Finalizat când verificările și examinarea la 390/1024 px trec. Explică ce cauză de cascadă/aranjare tratează fiecare suprascriere.
+> Inspect the page at 390 and 1024 px, the original CSS, and the layer order. Change only `public/repair.css`, inside the existing repair layer. Fix navigation, the one-/two-column layout at 48rem, notice colors, card height, and button sizing/focus as specified above. Do not change HTML or original CSS. Do not use !important, ID selectors, hidden overflow, or fixed card heights. Run the checks and inspect both widths again. Explain which original declaration each correction overrides and why it wins.
 
-## Sarcină de depanare/extindere
+## Debugging / extension task
 
-- Mută stratul de remediere înaintea celui vechi, observă stilurile calculate și cere-i lui Codex să explice de ce regulile mai puțin specifice pierd sau câștigă diferit între straturi.
+After finishing, temporarily place the repair layer before the legacy layer in the layer-order stylesheet. Inspect which declarations now win and explain why. Restore the original order and rerun the checks. This experiment is separate from the required one-file repair.
 
-## În afara domeniului exercițiului
+## Out of scope
 
-- Rescrierea fișierului vechi, preprocesoare, framework-uri, măsurători JavaScript sau branding pixel-perfect.
+- Rewriting the legacy file, preprocessors, frameworks, JavaScript measurements, or pixel-perfect branding.

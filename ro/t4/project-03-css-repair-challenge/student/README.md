@@ -1,5 +1,5 @@
-# Provocare de remediere CSS
+# CSS Repair Challenge
 
-Rulează `npm install`, `npm start` și `npm test`. Compară la 390 și 1024 px. Editează doar `public/repair.css`.
+Run `npm install`, then `npm start`. Open the local URL printed in the terminal. In another terminal, run `npm test`. Compare 390 and 1024 px. Edit only `public/repair.css`.
 
-Rulați `npm run test:browser` cu Chrome/Chromium disponibil pentru a valida stilurile calculate și comportamentul DOM nativ. Setați `CHROME_BIN` dacă executabilul nu se numește `google-chrome`.
+Run `npm run test:browser` with Chrome/Chromium available to validate computed styles and native DOM behaviour. Set `CHROME_BIN` if the executable is not named `google-chrome`.

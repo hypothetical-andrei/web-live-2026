@@ -1,30 +1,30 @@
-# Proiectul 01 — Reconstrucție responsive cu carduri/Grid
+# Project 01 — Responsive Card/Grid Reconstruction
 
-## Obiectiv
+## What you need to do
 
-Reconstruiește un catalog responsive cu 1/2/4 coloane din HTML semantic fix și `visual-spec.md`.
+Style the supplied product catalog. Show one column at 320 px, two at 768 px, and four at 1280 px. Keep the text readable and the controls usable at each width.
 
-## Flux de lucru
+Work in `student/`. Change only `public/styles.css`. You already have the HTML, product content, server, tests, and `visual-spec.md`, which describes the required appearance. Read [spec.md](spec.md) for the full requirements.
 
-Examinează pagina nestilizată din `student/` la 320, 768 și 1280 px. Identifică separat dimensionarea exterioară, aranjarea colecției, interiorul cardurilor, depășirea intrinsecă, focusul și mișcarea. Folosește stilurile calculate și suprapunerile Grid, nu presupuneri din aspect.
+## Before editing
 
-Transmite-i lui Codex sarcina delimitată din `spec.md`. Analizează propunerea pentru lățimi fixe, ascunderea overflow-ului, specificitate excesivă, aranjare JavaScript, focus absent și breakpoint-uri nepotrivite. Compară toate viewport-urile după fiecare schimbare importantă.
+Start the page using the instructions in `student/README.md`. Open DevTools and inspect it at the three required widths. Find the header, filter controls, card list, images, and action links in the HTML.
 
-## Criterii de reușită
+## Your changes
 
-- Verificările automate trec.
-- Aranjările afișează 1/2/4 coloane la lățimile indicate, fără depășire orizontală.
-- Conținutul lung se împachetează, iar acțiunile se aliniază.
-- Focusul prin tastatură rămâne vizibil, iar mișcarea redusă dezactivează tranzițiile.
-- Se schimbă doar `public/styles.css`.
+- Use Grid for the card columns and Flexbox to align the header and card contents.
+- Let long text wrap and let cards grow with their content.
+- Keep image proportions, visible keyboard focus, and reduced-motion support.
+- Keep the supplied HTML and use the breakpoints specified in `visual-spec.md`.
 
-## Sarcină de depanare
+Ask Codex for the scoped task in `spec.md`. Check its changes before running them. For each CSS rule, explain what it changes on the page.
 
-Introdu o etichetă lungă fără întreruperi și reproduce depășirea pe ecran îngust. Cere-i lui Codex diagnosticul dimensionării intrinseci, apoi verifică faptul că remedierea împachetează conținutul, nu îl ascunde.
+## Check your work
 
-## Ce ar trebui să poți explica
+From `student/`, run `npm test` and `npm run test:browser`. The browser check requires Chrome/Chromium; see `student/README.md`.
 
-- Cascada și valorile moștenite.
-- Dimensionarea content-box/border-box.
-- Responsabilitățile Grid față de Flexbox.
-- Dimensiunea minimă intrinsecă și breakpoint-urile responsive.
+Inspect the page at 320, 768, and 1280 px. Confirm that the column counts are correct, text is not cut off, and there is no horizontal scrolling. Use Tab to check focus, and emulate reduced motion in DevTools. Check your diff: only `public/styles.css` should have changed.
+
+## Follow-up
+
+Try a long unbroken product label at 320 px. Explain why it overflows and fix the wrapping without hiding the text. Restore the supplied content when finished.

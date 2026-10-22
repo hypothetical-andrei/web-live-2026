@@ -11,8 +11,7 @@ function fieldControls(field) {
 }
 
 function setErrors(errors) {
-  // Oglindim fiecare rezultat de validare lângă câmpul lui și în lista
-  // din sumarul de erori.
+  // Mirror each validation result next to its field and in the summary list.
   for (const field of fields) {
     document.querySelector(`#${field}-error`).textContent = errors[field] ?? "";
 
@@ -49,7 +48,7 @@ form.addEventListener("submit", (event) => {
       setErrors,
       focusSummary: () => summary.focus(),
       submit: (values) => {
-        success.textContent = `Înscris: ${values.name}`;
+        success.textContent = `Enrolled ${values.name}`;
         form.reset();
       },
     },

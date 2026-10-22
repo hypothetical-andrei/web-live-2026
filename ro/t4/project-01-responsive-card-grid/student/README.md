@@ -1,5 +1,5 @@
-# Reconstrucție responsive cu carduri/Grid
+# Responsive Card/Grid Reconstruction
 
-Rulează `npm install`, `npm start` și `npm test`. Examinează la 320, 768 și 1280 pixeli CSS. Modifică doar `public/styles.css`.
+Run `npm install`, then `npm start`. Open the local URL printed in the terminal. In another terminal, run `npm test`. Inspect at 320, 768, and 1280 CSS pixels. Change only `public/styles.css`.
 
-Rulați `npm run test:browser` cu Chrome/Chromium disponibil pentru a valida stilurile calculate și comportamentul DOM nativ. Setați `CHROME_BIN` dacă executabilul nu se numește `google-chrome`.
+Run `npm run test:browser` with Chrome/Chromium available to validate computed styles and native DOM behaviour. Set `CHROME_BIN` if the executable is not named `google-chrome`.

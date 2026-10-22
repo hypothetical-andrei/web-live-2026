@@ -1,89 +1,89 @@
-# Specificația exercițiului — Reconstrucție responsive cu carduri/Grid
+# Exercise Specification — Responsive Card/Grid Reconstruction
 
-## Unitate
+## Unit
 
-Unitatea 04 — HTML, CSS, interfețe responsive și accesibilitate
+Unit 04 — HTML, CSS, Responsive UI and Accessibility
 
-## Obiectiv de învățare
+## Learning objective
 
-Reconstruiește o interfață responsive cu carduri din criterii vizuale și de aranjare explicite, folosind cascada, modelul cutiei, Grid, Flexbox și două breakpoint-uri specificate.
+Style a supplied catalog so its cards fit narrow and wide screens. Use the box model, Grid, Flexbox, and the two required breakpoints.
 
-## De ce există acest exercițiu
+## Why this exercise exists
 
-CSS se învață cel mai bine ca sistem de constrângeri, nu ca declarații izolate. Markup-ul semantic fix permite analizarea spațiului disponibil, dimensionării intrinseci, alinierii și cascadei prin compararea aranjărilor observabile la lățimi indicate.
+You keep the HTML unchanged and work on CSS. Compare the page at three widths to see how sizing, wrapping, and alignment affect the result.
 
-## Cerințe preliminare
+## Prerequisites
 
-- Instrumentele de dezvoltare ale browserului și proiectele statice din Unitatea 3.
-- Familiaritate de bază cu elemente HTML și selectori.
+- Browser developer tools and Unit 3 static browser projects.
+- Basic HTML element and selector familiarity.
 
-## Context inițial
+## Starting context
 
-Ai primit HTML semantic pentru antetul catalogului, controale de filtrare și patru carduri; conținut fix; server static fără dependențe; `visual-spec.md`; verificări și `public/styles.css` incomplet. HTML-ul nu trebuie restructurat.
+Work in `student/`. You have the catalog HTML, four product cards, a static server, tests, `visual-spec.md`, and an unfinished `public/styles.css`. Keep the supplied HTML and content.
 
-## Comportament necesar
+## Required behavior
 
-- Dimensionare globală border-box și font de sistem lizibil; corpul nu depășește orizontal la 320 px.
-- Conținut centrat cu lățime maximă `72rem`, padding și contrast vizibil al fundalului.
-- Antet Flexbox care se împachetează sigur și aliniază titlul/filtrele cu spațiere consecventă.
-- Lista de carduri folosește CSS Grid: o coloană sub 40rem, două de la 40rem și patru de la 64rem.
-- Cardurile folosesc padding egal, bordură/rază și coloană flex, astfel încât acțiunea să se alinieze jos chiar pentru descrieri diferite.
-- Zona media păstrează raportul 16/9 prin CSS, fără înălțime fixă în pixeli.
-- Legăturile/controalele cu `focus-visible` au contur clar; hover-ul nu elimină focusul.
-- La `prefers-reduced-motion: reduce`, tranzițiile sunt dezactivate.
+- Use border-box sizing and a readable system font. The page must not scroll horizontally at 320 px.
+- Content is centered with maximum width `72rem`, page padding, and visible background contrast.
+- Use Flexbox for the header. Let the title and filters wrap when needed and keep consistent spacing between them.
+- Card list uses CSS Grid: one column below 40rem, two columns from 40rem, and four columns from 64rem.
+- Give cards equal padding, a border, rounded corners, and a Flexbox column layout. Align action links at the bottom even when descriptions have different lengths.
+- Card media preserves a 16/9 aspect ratio using CSS, with no fixed pixel height.
+- Focus-visible links/controls have a clear outline; hover enhancement does not remove focus.
+- At `prefers-reduced-motion: reduce`, transitions are disabled.
 
-## Restricții
+## Constraints
 
-- Modifică doar `public/styles.css`.
-- Folosește Grid pentru colecție și Flexbox în card/antet unde este potrivit.
-- Fără framework-uri, preprocesoare, măsurători JavaScript, poziționare absolută pentru aranjarea principală sau lățimi fixe ale cardurilor.
-- Nu ascunde overflow-ul pentru a masca un defect.
-- Folosește proprietăți personalizate cel puțin pentru culori, spațiere și rază.
+- You must edit only `public/styles.css`.
+- Use Grid for the card collection and Flexbox inside/header where appropriate.
+- No frameworks, preprocessors, JavaScript layout measurements, absolute positioning for primary layout, or fixed card widths.
+- Do not hide overflow to mask a sizing defect.
+- Use CSS custom properties for at least colors, spacing, and corner radius.
 
-## Criterii observabile de finalizare
+## Observable completion criteria
 
-- La 320 px: o coloană lizibilă și fără derulare orizontală.
-- La 768 px: două coloane cu lățime disponibilă egală.
-- La 1280 px: patru coloane în containerul centrat cu lățime maximă.
-- Titlurile lungi se împachetează fără să împingă controalele; acțiunile se aliniază pe rând.
-- Focusul prin tastatură este vizibil, iar emularea mișcării reduse elimină tranzițiile.
-- Verificările automate ale sursei/structurii trec.
+- At 320 px: one readable column and no horizontal scroll.
+- At 768 px: two columns of equal available width.
+- At 1280 px: four columns within the centered maximum-width container.
+- Long titles wrap without pushing controls outside cards; action links align along the row baseline.
+- Keyboard focus is visible, and reduced-motion emulation removes transitions.
+- Automated source/structure checks pass.
 
-## Plan de validare
+## Validation plan (for course authors)
 
-### Verificări de bază
+### Baseline checks
 
-- HTML-ul semantic conține ierarhia header/main/form/list/article și întregul conținut fix.
-- Serverul static pornește și servește HTML/CSS.
+- Semantic HTML contains header/main/form/list/article hierarchy and all fixed content.
+- Static server starts and serves HTML/CSS.
 
-### Verificări de obiectiv
+### Objective checks
 
-- Foaia declară border-box, token-uri personalizate, container centrat, antet/interior flex, colecție grid, raport de aspect și breakpoint-urile exacte 40rem/64rem.
-- Declarațiile Grid implementează stările 1/2/4.
-- Există reguli pentru focus vizibil și mișcare redusă.
+- Stylesheet declares border-box, token custom properties, centered max-width container, flex header/card internals, grid collection, aspect ratio, and exact 40rem/64rem breakpoints.
+- Grid column declarations implement 1/2/4 states.
+- Focus-visible and reduced-motion rules exist.
 
-### Verificări de regresie
+### Regression checks
 
-- Foaia nu conține `overflow-x: hidden`, poziționare absolută principală sau lățime fixă de card.
-- HTML-ul este neschimbat și fără stil inline.
-- Acoladele CSS sunt echilibrate și toate proprietățile personalizate folosite sunt definite.
+- Stylesheet contains no `overflow-x: hidden`, primary absolute positioning, or fixed card width.
+- HTML is unchanged and contains no inline style.
+- CSS braces are balanced and all referenced custom properties are defined.
 
-### Verificări în browser
+### Browser checks
 
-- Chrome headless măsoară 1/2/4 coloane Grid calculate la 320/768/1280 px, componentele Flexbox, depășirea orizontală și conturul linkului focalizat.
+- Headless Chrome measures 1/2/4 computed Grid columns at 320/768/1280 px, Flexbox internals, horizontal overflow, and the focused-link outline.
 
-## Sarcina ta
+## Your task
 
-Trebuie să implementezi stilurile lipsă în `public/styles.css`. Fișierul inițial conține câteva proprietăți personalizate și un TODO. HTML-ul, specificația vizuală, serverul și testele sunt furnizate. Pagina rulează, dar nu îndeplinește încă cerințele de aspect; completează CSS-ul și verifică toate cele trei lățimi specificate.
+Complete `public/styles.css`. Start with the narrow layout, then check the two wider layouts. The server and HTML already work; your job is to write the CSS that meets the requirements above.
 
-## Sarcină pentru Codex
+## Codex task
 
-> Citește `visual-spec.md`, HTML-ul semantic și verificările CSS. Implementează numai `public/styles.css` cu proprietăți personalizate, Grid pentru 1/2/4 coloane la breakpoint-urile exacte, Flexbox pentru aliniere, dimensionare intrinsecă, focus vizibil și mișcare redusă. Nu schimba HTML-ul, nu adăuga dependențe, nu ascunde overflow-ul și nu folosi lățimi fixe. Finalizat când verificările trec, iar examinarea la 320/768/1280 px corespunde specificației. Explică fiecare constrângere înainte să editezi.
+> Read `visual-spec.md`, the HTML, and this specification. Change only `public/styles.css`. Build the required one-, two-, and four-column layouts using Grid, and use Flexbox for the header and card contents. Keep long text visible, preserve image proportions, and add visible focus and reduced-motion support. Do not change HTML, add dependencies, hide overflow, or set fixed card widths. Run the checks and inspect 320, 768, and 1280 px. Explain what each group of CSS rules does.
 
-## Sarcină de depanare/extindere
+## Debugging / extension task
 
-- Adaugă o etichetă de produs neobișnuit de lungă, reproduce depășirea la 320 px și cere-i lui Codex o remediere țintită a dimensionării intrinseci. Verifică să nu ascundă conținutul sau să strice aranjarea largă.
+Try a long unbroken product label at 320 px. Find why it overflows and ask Codex for a fix that wraps the text rather than hiding it. Check the wider layouts too, then restore the supplied content.
 
-## În afara domeniului exercițiului
+## Out of scope
 
-- Framework-uri CSS, container queries, responsive prin JavaScript, optimizarea imaginilor, mod întunecat sau editarea conținutului.
+- CSS frameworks, container queries, JavaScript responsiveness, image optimization, dark mode, or content editing.

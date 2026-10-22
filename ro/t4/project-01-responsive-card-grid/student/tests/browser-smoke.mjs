@@ -1,16 +1,22 @@
 import assert from "node:assert/strict";
-import { execFile } from "node:child_process";
-import { mkdtemp, rm } from "node:fs/promises";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
-import { promisify } from "node:util";
 import { createStaticServer, listen } from "../src/static-server.js";
-const execute = promisify(execFile); const server = createStaticServer();
+import { openChrome } from "./chrome.mjs";
+
+const server = createStaticServer();
 try {
   const url = await listen(server);
-  for (const [width, columns] of [[320, 1], [768, 2], [1280, 4]]) {
-    const profile = await mkdtemp(join(tmpdir(), `card-grid-${width}-`));
-    try { const { stdout } = await execute(process.env.CHROME_BIN ?? "google-chrome", ["--headless=new", "--no-sandbox", "--disable-gpu", "--force-device-scale-factor=1", `--window-size=${width},800`, `--user-data-dir=${profile}`, "--virtual-time-budget=500", "--dump-dom", `${url}/?browser-smoke`]); assert.match(stdout, /data-browser-smoke="pass"/); assert.match(stdout, new RegExp(`data-columns="${columns}"`)); }
-    finally { await rm(profile, { recursive: true, force: true }); }
+  for (const [width, columns, reducedMotion] of [[320, 1, false], [768, 2, false], [1280, 4, false], [768, 2, true]]) {
+    const browser = await openChrome({ width, reducedMotion });
+    try {
+      await browser.navigate(`${url}/?browser-smoke`);
+      const state = await browser.evaluate("({ ...document.documentElement.dataset })");
+      assert.equal(Number(state.viewport), width, "The test must use the requested CSS viewport width");
+      assert.equal(state.browserSmoke, "pass", JSON.stringify(state));
+      assert.equal(Number(state.columns), columns);
+      assert.equal(state.reducedMotion, String(reducedMotion));
+    } finally { await browser.close(); }
   }
-} finally { server.closeAllConnections(); await new Promise((resolve) => server.close(resolve)); }
+} finally {
+  server.closeAllConnections();
+  await new Promise((resolve) => server.close(resolve));
+}

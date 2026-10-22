@@ -1,10 +1,10 @@
 export function validateEnrollment(input) {
-  // TODO: normalizează câmpurile și întoarce erori de validare deterministe.
+  // TODO: normalize fields and return deterministic validation errors.
   return { values: { ...input }, errors: {} };
 }
 
 export function handleSubmission(input, ui) {
-  // TODO: coordonează afișarea erorilor/focusul sau o singură trimitere validă.
+  // TODO: coordinate error display/focus or one valid submission.
   void ui;
   return { ok: false, errors: validateEnrollment(input).errors };
 }

@@ -1,31 +1,32 @@
-# Proiectul 03 — Provocare de remediere CSS
+# Project 03 — CSS Repair Challenge
 
-## Obiectiv
+## What you need to do
 
-Diagnostichează o foaie de stil generată și păstrată, apoi restabilește fluxul, aranjarea responsive, culorile lizibile ale mesajului, înălțimea intrinsecă a cardurilor și focusul vizibil printr-un singur strat țintit al cascadei.
+Fix the supplied page by editing only `student/public/repair.css`. The original CSS has deliberate mistakes: the navigation covers the heading, the layout does not fit narrow screens, the notice is hard to read, cards cut off text, and buttons have no visible focus indicator.
 
-## Flux de lucru
+Keep the HTML and `legacy-generated.css` unchanged. Put your corrections in the existing `repair` layer. Read [spec.md](spec.md) for the required appearance and restrictions.
 
-Rulează pagina ta inițială la 390 și 1024 px înainte să editezi. Folosește stilurile calculate pentru a urmări fiecare defect până la declarația veche și ordinea straturilor. Clasifică-l drept problemă de cascadă, flux, dimensionare sau focus.
+## Before editing
 
-Transmite-i lui Codex sarcina delimitată din `spec.md`. Respinge editările în afara lui `public/repair.css`, escaladarea selectorilor, `!important`, overflow ascuns, înălțimi fixe sau o foaie înlocuitoare copiată. Verifică modul în care fiecare declarație propusă tratează o cauză observată.
+Start the page using `student/README.md`. Inspect it at 390 and 1024 px. For each visible problem, use DevTools to find the CSS declaration that causes it.
 
-## Criterii de reușită
+During the classroom session, record these findings. Complete the CSS repairs as follow-up work unless you have time remaining.
 
-- Verificările de bază, obiectiv și regresie trec.
-- Navigarea rămâne în flux și se împachetează deasupra conținutului.
-- Conținutul principal are o coloană sub 48rem și Grid sidebar/conținut deasupra.
-- Culorile mesajului, focusul vizibil și înălțimea intrinsecă respectă contractul.
-- Doar `public/repair.css` diferă față de starea furnizată.
+## Your changes
 
-## Sarcină de depanare
+- Keep navigation above the heading and let its links wrap on narrow screens.
+- Show one content column below 48rem, then a sidebar and main column from 48rem onward.
+- Make the notice readable, let cards grow to fit their text, and keep buttons large enough for their contents.
+- Show a clear outline when a button has keyboard focus.
 
-Plasează temporar stratul de remediere înaintea celui vechi. Examinează valorile calculate și explică de ce ordinea straturilor se rezolvă înaintea specificității. Restabilește ordinea canonică și rerulează verificările.
+Ask Codex to change only `public/repair.css`. Do not use `!important`, ID selectors, hidden overflow, fixed card heights, or a replacement copy of the original stylesheet. For each correction, explain which original declaration it overrides and why it wins.
 
-## Ce ar trebui să poți explica
+## Check your work
 
-- Straturile cascadei față de specificitate.
-- Fluxul normal față de poziționarea fixă.
-- Înălțimea intrinsecă și de ce tăierea nu este remediere.
-- Breakpoint-uri determinate de conținut și dimensionarea pistelor Grid.
-- De ce vizibilitatea focusului este comportament observabil.
+From `student/`, run `npm test` and `npm run test:browser`. The browser check requires Chrome/Chromium; see `student/README.md`.
+
+Inspect both widths again and use Tab to check button focus. Check that navigation does not cover the heading and all card text is visible. Only `public/repair.css` should have changed.
+
+## Follow-up
+
+Temporarily put the `repair` layer before the `legacy` layer in the layer-order stylesheet. Inspect which declarations now win. Explain the effect, restore the original layer order, and rerun the checks. This experiment is separate from the required one-file repair.

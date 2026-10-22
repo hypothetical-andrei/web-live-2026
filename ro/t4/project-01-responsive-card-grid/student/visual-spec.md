@@ -1,9 +1,9 @@
-# Specificație vizuală
+# Visual specification
 
-| Viewport | Coloane | Relație așteptată |
+| Viewport | Columns | Expected relationship |
 | --- | ---: | --- |
-| 320 px | 1 | padding-ul paginii rămâne; fără derulare orizontală |
-| 768 px | 2 | cardurile împart egal lățimea disponibilă |
-| 1280 px | 4 | grila rămâne în conținutul centrat de 72rem |
+| 320 px | 1 | page padding remains; no horizontal scroll |
+| 768 px | 2 | cards share available width evenly |
+| 1280 px | 4 | grid stays within centered 72rem content |
 
-Pagina folosește un fundal neutru pal, carduri albe cu bordură, text închis și accent albastru. Controalele antetului se împachetează. Imaginile sunt reprezentate prin zone colorate 16:9. Acțiunile se aliniază jos. Focusul este mereu vizibil la interacțiunea prin tastatură.
+The page uses a pale neutral canvas, white bordered cards, dark text, and a blue accent. Header controls wrap rather than overflow. Images are represented by colored 16:9 placeholders. Card actions align at the bottom. Focus is always visible for keyboard interaction.
