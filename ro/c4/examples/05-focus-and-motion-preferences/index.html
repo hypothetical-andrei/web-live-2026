@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+  Ghid didactic
+
+  Obiectiv: Focusul prin tastatură are nevoie de un indicator observabil, iar mișcarea neesențială trebuie să respecte preferința utilizatorului.
+
+  Motivația structurii: Un buton nativ arată că hover-ul, focusul și preferința pentru mișcare sunt contracte separate.
+
+  Urmărește dovezile:
+  - Butonul nativ poate primi focus fără simularea prin script a unui rol de tastatură.
+  - `:focus-visible` oferă un contur contrastant fără să elimine modelul de interacțiune al browserului.
+  - Interogarea pentru mișcare redusă dezactivează tranziția și păstrează acțiunea.
+-->
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Focus și preferințe pentru mișcare</title>
+    <style>
+      .action {
+        transition: transform 200ms ease;
+      }
+      .action:hover { transform: translateY(-2px); }
+      .action:focus-visible { outline: 3px solid #174ea6; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        .action { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Acțiune adaptată preferințelor</h1>
+      <button class="action" type="button">Salvează modificările</button>
+      <output id="result"></output>
+    </main>
+    <script type="module">
+      const action = document.querySelector(".action");
+      action.focus({ focusVisible: true });
+      const style = getComputedStyle(action);
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.querySelector("#result").textContent = [
+        `focused=${document.activeElement === action}`,
+        `outline=${style.outlineStyle}`,
+        `reduced-motion=${reduced}`,
+        `transition=${style.transitionDuration}`,
+      ].join("; ");
+    </script>
+  </body>
+</html>

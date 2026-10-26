@@ -1,0 +1,41 @@
+<!doctype html>
+<!--
+  Teaching guide
+
+  Goal: CSS Grid can choose the number of columns from available space while card height remains driven by content.
+
+  Why this design: Three cards and one layout rule expose responsive wrapping without reproducing the tutorial reconstruction project.
+
+  Follow the evidence:
+  - `auto-fit` creates only columns that fit.
+  - `minmax(min(100%, 14rem), 1fr)` prevents a minimum track from overflowing a narrow viewport.
+  - The longer card grows instead of clipping content.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Automatically fitting card columns</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 1rem; font: 1rem/1.5 system-ui, sans-serif; }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+        gap: 1rem;
+      }
+      article { border: 1px solid #8792a5; padding: 1rem; }
+      h2 { margin-block-start: 0; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Course checks</h1>
+      <section class="cards" aria-label="Checks">
+        <article><h2>Inspect</h2><p>Read the existing code.</p></article>
+        <article><h2>Run</h2><p>Execute focused and aggregate checks.</p></article>
+        <article><h2>Explain</h2><p>Connect the observed behavior to the code path that produces it, including failure paths.</p></article>
+      </section>
+    </main>
+  </body>
+</html>

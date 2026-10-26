@@ -1,0 +1,41 @@
+<!doctype html>
+<!--
+  Ghid didactic
+
+  Obiectiv: CSS Grid poate alege numărul coloanelor din spațiul disponibil, iar înălțimea rămâne determinată de conținut.
+
+  Motivația structurii: Trei carduri și o regulă prezintă împachetarea responsive fără să reproducă proiectul din tutorial.
+
+  Urmărește dovezile:
+  - `auto-fit` creează doar coloanele care încap.
+  - `minmax(min(100%, 14rem), 1fr)` împiedică pista minimă să depășească un viewport îngust.
+  - Cardul mai lung crește în loc să taie conținutul.
+-->
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Coloane de carduri care încap automat</title>
+    <style>
+      * { box-sizing: border-box; }
+      body { margin: 0; padding: 1rem; font: 1rem/1.5 system-ui, sans-serif; }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+        gap: 1rem;
+      }
+      article { border: 1px solid #8792a5; padding: 1rem; }
+      h2 { margin-block-start: 0; }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Verificările cursului</h1>
+      <section class="cards" aria-label="Verificări">
+        <article><h2>Examinează</h2><p>Citește codul existent.</p></article>
+        <article><h2>Rulează</h2><p>Execută verificările țintite și agregate.</p></article>
+        <article><h2>Explică</h2><p>Leagă comportamentul observat de traseul de cod care îl produce, inclusiv căile de eșec.</p></article>
+      </section>
+    </main>
+  </body>
+</html>

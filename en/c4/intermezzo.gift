@@ -1,0 +1,74 @@
+$CATEGORY: Web Technologies/Unit 04/Intermezzo 1
+
+::u04-i1-action-element::Which element is normally correct for an in-page action that submits or changes state? {
+=A button #Correct. It provides action semantics, keyboard activation, and focus behavior.
+~A heading #Incorrect. A heading structures content rather than performing an action.
+~A div with a click listener #Incorrect. It lacks native action semantics and keyboard behavior.
+~A placeholder #Incorrect. A placeholder is transient input guidance.
+}
+
+::u04-i1-description::What does `aria-describedby` provide when it references instructional text? {
+~A replacement for the input label #Incorrect. The control still needs an accessible name.
+~A CSS selector priority increase #Incorrect. It does not affect the cascade.
+=An additional programmatic description for the control #Correct. It supplements rather than replaces the accessible name.
+~Automatic form validation code #Incorrect. The relationship exposes description, not validation behavior.
+}
+
+::u04-i1-source-order::CSS visual reordering automatically changes keyboard and screen-reader order to match. {FALSE #Incorrect. Interaction and reading order generally follow the DOM. #Correct. Interaction and reading order generally follow the DOM.}
+
+::u04-i1-form-key::A form contains an email input whose name is contact and whose id is email-field. Which attribute supplies the submitted key? {
+=The name attribute: contact #Correct. Named controls contribute name-value pairs; id identifies an element within the document.
+~The id attribute: email-field #Incorrect. The id supports references such as label associations, not the submitted key.
+~The type attribute: email #Incorrect. The type selects input behavior and validation, not the submitted key.
+~The class attribute #Incorrect. Class names support grouping and selectors, not form submission keys.
+}
+
+$CATEGORY: Web Technologies/Unit 04/Intermezzo 2
+
+::u04-i2-layer-order::Two normal author declarations target the same property on the same element. Both selectors match. An explicit layer-order statement places the class rule’s layer after the ID rule’s layer. Which wins? {
+~Both declarations are discarded #Incorrect. The cascade selects one winning value.
+=The class rule in the later layer #Correct. Normal layer order is resolved before selector specificity.
+~The inherited value #Incorrect. A directly matched winning declaration outranks inheritance.
+~The ID rule because IDs always win #Incorrect. Specificity is compared only after the relevant layer decision.
+}
+
+::u04-i2-box-width::An element uses content-box sizing, width 200px, 20px padding on both sides, and 1px borders. What is its outer border-box width? {
+~240px #Incorrect. The two one-pixel borders are also part of outer width.
+~220px #Incorrect. This accounts for only half the padding and omits borders.
+~200px #Incorrect. That would be the outer width under border-box sizing.
+=242px #Correct. Add 200 content, 40 padding, and 2 border.
+}
+
+::u04-i2-important::You should repair conflicts in your own CSS by adding `!important`. {FALSE #Incorrect. Repair your selectors, layers, or conflicting declarations. Reserve important overrides for external styles you cannot change, such as normal inline styles injected by a library. #Correct. Repair your selectors, layers, or conflicting declarations. Reserve important overrides for external styles you cannot change, such as normal inline styles injected by a library.}
+
+::u04-i2-specificity-tie::A paragraph is a direct child of a div. In the same layer, normal author rules appear in this order: `div > p` sets color to navy, then `div p` sets color to teal. What color wins? {
+~Navy, because a direct-child selector matches a narrower set #Incorrect. Logical narrowness does not increase CSS specificity; combinators add no weight.
+~Navy, because the first matching rule wins #Incorrect. The later declaration wins when specificity and earlier comparisons tie.
+=Teal, because both selectors have specificity (0, 0, 2) and the teal declaration appears later #Correct. Each selector counts two element names; neither combinator adds specificity.
+~Neither color, because equal specificity cancels both rules #Incorrect. A specificity tie is resolved by order of appearance in this case.
+}
+
+$CATEGORY: Web Technologies/Unit 04/Intermezzo 3
+
+::u04-i3-layout-tool::Which layout system best expresses coordinated rows and columns of cards? {
+~Flexbox with wrapping #Incorrect. Each flex line distributes its items independently; it does not coordinate column tracks across rows.
+~Absolute positioning #Incorrect. It removes items from normal flow and is fragile for changing content.
+~Normal block flow #Incorrect. Blocks follow one another; this does not establish coordinated column tracks.
+=CSS Grid #Correct. Grid defines two-dimensional track relationships.
+}
+
+::u04-i3-breakpoint::What is the strongest reason to introduce a responsive breakpoint? {
+~The HTML has more than ten elements. #Incorrect. Element count does not determine a breakpoint.
+=The content becomes crowded or hard to use in the available space. #Correct. Add a breakpoint where the current layout needs to change.
+~A device table labels the width as tablet. #Incorrect. Device categories do not describe this content's constraints.
+~The stylesheet needs an arbitrary round number. #Incorrect. A breakpoint needs observable layout justification.
+}
+
+::u04-i3-reduced-motion::A reduced-motion rule should remove the button itself so no animation can occur. {FALSE #Incorrect. Preserve functionality and remove or reduce nonessential motion. #Correct. Preserve functionality and remove or reduce nonessential motion.}
+
+::u04-i3-positioned-badge::A card has position: relative. Its badge is a direct child and has position: absolute with top and right offsets. No other property establishes a containing block. Which statement describes the badge? {
+~It reserves its original space and shifts from that position #Incorrect. That describes relative positioning; absolute positioning removes its space from normal flow.
+~It is necessarily anchored to the viewport #Incorrect. The relatively positioned card establishes its containing block here.
+=It is positioned within the card and reserves no space in normal flow #Correct. The card establishes the containing block, and you may need padding to keep the badge from covering text.
+~It moves all later cards down by its height #Incorrect. An absolutely positioned badge does not participate in normal flow.
+}

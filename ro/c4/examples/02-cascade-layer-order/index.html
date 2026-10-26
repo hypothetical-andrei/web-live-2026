@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  Ghid didactic
+
+  Obiectiv: Precedența straturilor este stabilită înaintea specificității, astfel încât o regulă puțin specifică dintr-un strat ulterior poate suprascrie una foarte specifică dintr-un strat anterior.
+
+  Motivația structurii: Un mesaj și două reguli izolează ordinea straturilor de o remediere CSS mai amplă.
+
+  Urmărește dovezile:
+  - Selectorul vechi include un ID și o clasă.
+  - Selectorul temei este doar o clasă.
+  - Ordinea declarată face totuși culorile temei câștigătoare.
+-->
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <title>Ordinea straturilor cascadei</title>
+    <style>
+      @layer legacy, theme;
+      @layer legacy { #app .notice { color: #aaa; background: #eee; } }
+      @layer theme { .notice { color: #172033; background: #dce9ff; } }
+    </style>
+  </head>
+  <body>
+    <main id="app">
+      <p class="notice">Ordinea straturilor depășește escaladarea selectorilor.</p>
+      <output id="result"></output>
+    </main>
+    <script type="module">
+      const styles = getComputedStyle(document.querySelector(".notice"));
+      document.querySelector("#result").textContent =
+        `color=${styles.color}; background=${styles.backgroundColor}`;
+    </script>
+  </body>
+</html>

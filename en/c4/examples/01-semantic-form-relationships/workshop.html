@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- Goal: inspect one document before CSS. Follow its headings, list, table, links, image and form relationships. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Web technologies workshop</title>
+</head>
+<body>
+  <header>
+    <h1>Web technologies workshop</h1>
+    <p>Build a web page starting with its document structure.</p>
+    <nav aria-label="Page sections">
+      <a href="#about">About the workshop</a>
+      <a href="#schedule">Timetable</a>
+      <a href="#registration">Registration</a>
+    </nav>
+  </header>
+  <main>
+    <section id="about">
+      <h2>About the workshop</h2>
+      <figure>
+        <img src="workshop.svg" alt="A table with two laptops for pair work" width="480" height="180">
+        <figcaption>You work in pairs and compare the results in your browser.</figcaption>
+      </figure>
+      <h3>What you bring</h3>
+      <ul>
+        <li>A laptop with a modern browser</li>
+        <li>A text editor</li>
+        <li>Basic familiarity with files and directories</li>
+      </ul>
+    </section>
+    <section id="schedule">
+      <h2>Timetable</h2>
+      <table>
+        <caption>Workshop schedule</caption>
+        <thead><tr><th scope="col">Time</th><th scope="col">Activity</th><th scope="col">Room</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">10:00</th><td>Document structure</td><td>A1</td></tr>
+          <tr><th scope="row">10:30</th><td>Presentation with CSS</td><td>A1</td></tr>
+          <tr><th scope="row">11:00</th><td>Forms and keyboard navigation</td><td>A1</td></tr>
+        </tbody>
+      </table>
+      <h3>Venue</h3>
+      <p><a href="https://www.openstreetmap.org/?mlat=44.4474&amp;mlon=26.0101#map=17/44.4474/26.0101">View the venue on a map</a></p>
+    </section>
+    <section id="registration">
+      <h2>Registration</h2>
+      <p id="demo-note">This is a local example. The form validates your entries in the browser and displays them in the URL; it does not create a real registration. Use fictional details.</p>
+      <form action="workshop.html#registration" method="get" aria-describedby="demo-note">
+        <p><label for="name">Your name</label> <input id="name" name="name" autocomplete="name" required></p>
+        <p><label for="email">Email address</label> <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-help"></p>
+        <p id="email-help">Enter an address such as name@example.com.</p>
+        <fieldset>
+          <legend>Attendance mode</legend>
+          <label><input type="radio" name="mode" value="room" required> In the room</label>
+          <label><input type="radio" name="mode" value="remote"> Remote</label>
+        </fieldset>
+        <button type="submit">Check your details</button>
+      </form>
+    </section>
+  </main>
+  <footer><p>Lecture 04 example.</p></footer>
+</body>
+</html>

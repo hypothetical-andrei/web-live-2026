@@ -1,0 +1,65 @@
+<!doctype html>
+<!-- Scop: urmărește structura aceleiași pagini înainte de CSS. Observă titlurile, lista, tabelul și relațiile formularului. -->
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Atelier de tehnologii web</title>
+</head>
+<body>
+  <header>
+    <h1>Atelier de tehnologii web</h1>
+    <p>Construiește o pagină web pornind de la structura documentului.</p>
+    <nav aria-label="Secțiunile paginii">
+      <a href="#about">Despre atelier</a>
+      <a href="#schedule">Orar</a>
+      <a href="#registration">Înscriere</a>
+    </nav>
+  </header>
+  <main>
+    <section id="about">
+      <h2>Despre atelier</h2>
+      <figure>
+        <img src="workshop.svg" alt="O masă cu două laptopuri pentru lucrul în perechi" width="480" height="180">
+        <figcaption>Lucrezi în pereche și compari rezultatele în browser.</figcaption>
+      </figure>
+      <h3>Ce pregătești</h3>
+      <ul>
+        <li>Un laptop cu un browser modern</li>
+        <li>Un editor de text</li>
+        <li>Cunoștințe de bază despre fișiere și directoare</li>
+      </ul>
+    </section>
+    <section id="schedule">
+      <h2>Orar</h2>
+      <table>
+        <caption>Programul atelierului</caption>
+        <thead><tr><th scope="col">Ora</th><th scope="col">Activitate</th><th scope="col">Sala</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">10:00</th><td>Structura documentului</td><td>A1</td></tr>
+          <tr><th scope="row">10:30</th><td>Prezentarea cu CSS</td><td>A1</td></tr>
+          <tr><th scope="row">11:00</th><td>Formulare și navigare la tastatură</td><td>A1</td></tr>
+        </tbody>
+      </table>
+      <h3>Locație</h3>
+      <p><a href="https://www.openstreetmap.org/?mlat=44.4474&amp;mlon=26.0101#map=17/44.4474/26.0101">Vezi locația pe hartă</a></p>
+    </section>
+    <section id="registration">
+      <h2>Înscriere</h2>
+      <p id="demo-note">Acesta este un exemplu local. Formularul verifică datele în browser și le afișează în URL; nu trimite o înscriere reală. Folosește date fictive.</p>
+      <form action="workshop.html#registration" method="get" aria-describedby="demo-note">
+        <p><label for="name">Numele tău</label> <input id="name" name="name" autocomplete="name" required></p>
+        <p><label for="email">Adresa de e-mail</label> <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="email-help"></p>
+        <p id="email-help">Introdu o adresă de forma nume@example.com.</p>
+        <fieldset>
+          <legend>Mod de participare</legend>
+          <label><input type="radio" name="mode" value="room" required> În sală</label>
+          <label><input type="radio" name="mode" value="remote"> La distanță</label>
+        </fieldset>
+        <button type="submit">Verifică datele</button>
+      </form>
+    </section>
+  </main>
+  <footer><p>Exemplu pentru Cursul 04.</p></footer>
+</body>
+</html>

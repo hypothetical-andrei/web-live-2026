@@ -1,0 +1,37 @@
+<!doctype html>
+<!--
+  Teaching guide
+
+  Goal: `box-sizing` determines whether a declared width covers only content or includes padding and border.
+
+  Why this design: Two otherwise identical boxes turn the sizing equation into an observable browser measurement.
+
+  Follow the evidence:
+  - The content-box element renders at 242 pixels: 200 content + 40 padding + 2 border.
+  - The border-box element renders at the declared 200 pixels.
+  - Margins remain outside either width calculation.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Box model sizing</title>
+    <style>
+      body { font: 1rem/1.5 system-ui, sans-serif; }
+      .box { width: 200px; padding: 20px; border: 1px solid; margin-block: 1rem; }
+      .content-box { box-sizing: content-box; }
+      .border-box { box-sizing: border-box; }
+    </style>
+  </head>
+  <body>
+    <div class="box content-box">Content-box</div>
+    <div class="box border-box">Border-box</div>
+    <output id="result"></output>
+    <script type="module">
+      const contentWidth = document.querySelector(".content-box").getBoundingClientRect().width;
+      const borderWidth = document.querySelector(".border-box").getBoundingClientRect().width;
+      document.querySelector("#result").textContent =
+        `content-box=${contentWidth}; border-box=${borderWidth}`;
+    </script>
+  </body>
+</html>

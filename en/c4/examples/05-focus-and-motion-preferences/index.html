@@ -1,0 +1,49 @@
+<!doctype html>
+<!--
+  Teaching guide
+
+  Goal: Keyboard focus needs an observable indicator, while nonessential motion should respect the user's reduced-motion preference.
+
+  Why this design: One native button shows that hover enhancement, focus indication, and motion preference are separate interaction contracts.
+
+  Follow the evidence:
+  - The native button is focusable without scripting a keyboard role.
+  - `:focus-visible` supplies a high-contrast outline without removing the browser interaction model.
+  - The reduced-motion query disables the transition while preserving the action.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Focus and motion preferences</title>
+    <style>
+      .action {
+        transition: transform 200ms ease;
+      }
+      .action:hover { transform: translateY(-2px); }
+      .action:focus-visible { outline: 3px solid #174ea6; outline-offset: 3px; }
+      @media (prefers-reduced-motion: reduce) {
+        .action { transition: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Preference-aware action</h1>
+      <button class="action" type="button">Save changes</button>
+      <output id="result"></output>
+    </main>
+    <script type="module">
+      const action = document.querySelector(".action");
+      action.focus({ focusVisible: true });
+      const style = getComputedStyle(action);
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      document.querySelector("#result").textContent = [
+        `focused=${document.activeElement === action}`,
+        `outline=${style.outlineStyle}`,
+        `reduced-motion=${reduced}`,
+        `transition=${style.transitionDuration}`,
+      ].join("; ");
+    </script>
+  </body>
+</html>

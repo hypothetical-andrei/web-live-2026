@@ -1,0 +1,10 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; color: #172033; background: #f4f7fb; }
+.demo { width: min(100% - 2rem, 44rem); margin-inline: auto; padding-block: 2rem; }
+.toolbar { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; padding: 1rem; color: white; background: #173f73; }
+.actions { display: flex; gap: .5rem; }
+button { min-block-size: 2.75rem; padding-inline: 1rem; }
+.card { position: relative; margin-block-start: 1.5rem; padding: 2.75rem 1rem 1rem; border: 1px solid #91a4bd; border-radius: .5rem; background: white; }
+.card h2, .card p { margin-block: 0 .75rem; }
+.badge { position: absolute; inset-block-start: .75rem; inset-inline-end: .75rem; padding: .2rem .55rem; border-radius: 999px; color: white; background: #8b2451; }
+#result { display: block; margin-block-start: 1rem; font-family: ui-monospace, monospace; }

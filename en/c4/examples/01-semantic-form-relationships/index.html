@@ -1,0 +1,39 @@
+<!doctype html>
+<!--
+  Teaching guide
+
+  Goal: Native form elements expose names, instructions, grouping, and required state through explicit HTML relationships.
+
+  Why this design: It shows the smallest useful registration form without CSS layout or custom validation obscuring its semantics.
+
+  Follow the evidence:
+  - Each input has a programmatically associated label.
+  - The email instruction is connected with `aria-describedby`.
+  - Related radio controls are grouped by `fieldset` and `legend`.
+  - The button submits the form without a click-only JavaScript path.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Workshop registration</title>
+  </head>
+  <body>
+    <main>
+      <h1>Workshop registration</h1>
+      <form>
+        <p>
+          <label for="email">Email address</label>
+          <input id="email" name="email" type="email" required aria-describedby="email-help" />
+          <span id="email-help">We will send the joining link here.</span>
+        </p>
+        <fieldset>
+          <legend>Attendance mode</legend>
+          <label><input name="mode" type="radio" value="room" required /> In the room</label>
+          <label><input name="mode" type="radio" value="remote" /> Remote</label>
+        </fieldset>
+        <button type="submit">Register</button>
+      </form>
+    </main>
+  </body>
+</html>

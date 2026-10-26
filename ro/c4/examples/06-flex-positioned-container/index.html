@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="ro">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Container Flex și copil poziționat</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="demo">
+    <h1>Responsabilitățile aranjării în container</h1>
+    <div class="toolbar" aria-label="Controalele cursului">
+      <strong>Tehnologii Web</strong>
+      <div class="actions">
+        <button type="button">Anterior</button>
+        <button type="button">Următor</button>
+      </div>
+    </div>
+
+    <article class="card">
+      <span class="badge">Nou</span>
+      <h2>Fundamentele aranjării</h2>
+      <p>Cardul ocupă fluxul normal. Numai eticheta sa se suprapune intenționat.</p>
+    </article>
+
+    <output id="result" aria-live="polite"></output>
+  </main>
+  <script>
+    const toolbar = document.querySelector(".toolbar");
+    const card = document.querySelector(".card");
+    const badge = document.querySelector(".badge");
+    const toolbarStyle = getComputedStyle(toolbar);
+    document.querySelector("#result").textContent = `toolbar=${toolbarStyle.display}; justify=${toolbarStyle.justifyContent}; align=${toolbarStyle.alignItems}; badge=${getComputedStyle(badge).position}; bloc-de-conținere=${badge.offsetParent === card ? "card" : "altul"}`;
+  </script>
+</body>
+</html>

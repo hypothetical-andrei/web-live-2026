@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Flex container and positioned child</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="demo">
+    <h1>Container layout responsibilities</h1>
+    <div class="toolbar" aria-label="Course controls">
+      <strong>Web Technologies</strong>
+      <div class="actions">
+        <button type="button">Previous</button>
+        <button type="button">Next</button>
+      </div>
+    </div>
+
+    <article class="card">
+      <span class="badge">New</span>
+      <h2>Layout fundamentals</h2>
+      <p>The card occupies normal flow. Only its badge intentionally overlaps.</p>
+    </article>
+
+    <output id="result" aria-live="polite"></output>
+  </main>
+  <script>
+    const toolbar = document.querySelector(".toolbar");
+    const card = document.querySelector(".card");
+    const badge = document.querySelector(".badge");
+    const toolbarStyle = getComputedStyle(toolbar);
+    document.querySelector("#result").textContent = `toolbar=${toolbarStyle.display}; justify=${toolbarStyle.justifyContent}; align=${toolbarStyle.alignItems}; badge=${getComputedStyle(badge).position}; containing-block=${badge.offsetParent === card ? "card" : "other"}`;
+  </script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!doctype html>
+<!--
+  Ghid didactic
+
+  Obiectiv: `box-sizing` stabilește dacă lățimea declarată acoperă doar conținutul sau include padding-ul și bordura.
+
+  Motivația structurii: Două cutii altfel identice transformă ecuația într-o măsurătoare observabilă în browser.
+
+  Urmărește dovezile:
+  - Elementul content-box are 242 pixeli: 200 conținut + 40 padding + 2 bordură.
+  - Elementul border-box are cei 200 de pixeli declarați.
+  - Marginile rămân în afara ambelor calcule.
+-->
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Dimensionarea în modelul cutiei</title>
+    <style>
+      body { font: 1rem/1.5 system-ui, sans-serif; }
+      .box { width: 200px; padding: 20px; border: 1px solid; margin-block: 1rem; }
+      .content-box { box-sizing: content-box; }
+      .border-box { box-sizing: border-box; }
+    </style>
+  </head>
+  <body>
+    <div class="box content-box">Cutie pentru conținut</div>
+    <div class="box border-box">Cutie incluzând bordura</div>
+    <output id="result"></output>
+    <script type="module">
+      const contentWidth = document.querySelector(".content-box").getBoundingClientRect().width;
+      const borderWidth = document.querySelector(".border-box").getBoundingClientRect().width;
+      document.querySelector("#result").textContent =
+        `content-box=${contentWidth}; border-box=${borderWidth}`;
+    </script>
+  </body>
+</html>

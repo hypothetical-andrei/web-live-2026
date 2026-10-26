@@ -1,0 +1,35 @@
+<!doctype html>
+<!--
+  Teaching guide
+
+  Goal: Cascade-layer precedence is decided before selector specificity, so a low-specificity rule in a later layer can override a high-specificity rule in an earlier layer.
+
+  Why this design: One notice and two rules isolate layer order from a larger stylesheet repair.
+
+  Follow the evidence:
+  - The legacy selector includes an ID and class.
+  - The theme selector is only a class.
+  - The declared layer order still makes the theme colors win.
+-->
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Cascade layer order</title>
+    <style>
+      @layer legacy, theme;
+      @layer legacy { #app .notice { color: #aaa; background: #eee; } }
+      @layer theme { .notice { color: #172033; background: #dce9ff; } }
+    </style>
+  </head>
+  <body>
+    <main id="app">
+      <p class="notice">Layer order beats selector escalation.</p>
+      <output id="result"></output>
+    </main>
+    <script type="module">
+      const styles = getComputedStyle(document.querySelector(".notice"));
+      document.querySelector("#result").textContent =
+        `color=${styles.color}; background=${styles.backgroundColor}`;
+    </script>
+  </body>
+</html>

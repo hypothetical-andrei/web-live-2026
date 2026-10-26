@@ -1,0 +1,74 @@
+$CATEGORY: Tehnologii Web/Unitatea 04/Intermezzo 1
+
+::u04-i1-action-element::Ce element este în mod normal corect pentru o acțiune în pagină care trimite date sau schimbă starea? {
+=Un buton #Corect. Oferă semantică de acțiune, activare prin tastatură și comportament de focus.
+~Un titlu #Incorect. Un titlu structurează conținutul, nu execută o acțiune.
+~Un div cu un gestionar pentru evenimentul click #Incorect. Îi lipsește semantica nativă a acțiunii și comportamentul la tastatură.
+~Un placeholder #Incorect. Un placeholder este o indicație temporară pentru intrare.
+}
+
+::u04-i1-description::Ce oferă `aria-describedby` când face referire la un text cu instrucțiuni? {
+~Un înlocuitor pentru eticheta intrării #Incorect. Controlul are în continuare nevoie de nume accesibil.
+~O creștere a priorității selectorului CSS #Incorect. Nu afectează cascada.
+=O descriere programatică suplimentară pentru control #Corect. Completează numele accesibil, nu îl înlocuiește.
+~Cod automat pentru validarea formularului #Incorect. Relația expune descrierea, nu comportamentul de validare.
+}
+
+::u04-i1-source-order::Reordonarea vizuală prin CSS schimbă automat ordinea tastaturii și a cititorului de ecran pentru a corespunde. {FALSE #Incorect. Ordinea interacțiunii și citirii urmează în general DOM-ul. #Corect. Ordinea interacțiunii și citirii urmează în general DOM-ul.}
+
+::u04-i1-form-key::Un formular conține un câmp de e-mail cu name având valoarea contact și id având valoarea email-field. Ce atribut furnizează cheia trimisă? {
+=Atributul name: contact #Corect. Controalele denumite contribuie cu perechi nume-valoare; id identifică un element în document.
+~Atributul id: email-field #Incorect. id permite referințe precum asocierea etichetelor, nu stabilește cheia trimisă.
+~Atributul type: email #Incorect. Tipul stabilește comportamentul și validarea intrării, nu cheia trimisă.
+~Atributul class #Incorect. Clasele permit gruparea și selectarea elementelor, nu stabilesc cheile trimise de formular.
+}
+
+$CATEGORY: Tehnologii Web/Unitatea 04/Intermezzo 2
+
+::u04-i2-layer-order::Două declarații normale ale autorului vizează aceeași proprietate pe același element. Ambii selectori se potrivesc elementului. O declarație explicită a ordinii straturilor plasează stratul regulii de clasă după stratul regulii ID. Care câștigă? {
+~Ambele declarații sunt eliminate #Incorect. Cascada selectează o valoare câștigătoare.
+=Regula de clasă din stratul ulterior #Corect. Ordinea straturilor normale este rezolvată înaintea specificității selectorilor.
+~Valoarea moștenită #Incorect. O declarație câștigătoare care vizează direct elementul depășește moștenirea.
+~Regula ID, deoarece ID-urile câștigă întotdeauna #Incorect. Specificitatea este comparată abia după decizia relevantă despre strat.
+}
+
+::u04-i2-box-width::Un element folosește dimensionarea content-box, lățime 200px, padding de 20px pe ambele părți și borduri de 1px. Care este lățimea sa până la exteriorul bordurii, fără margini? {
+~240px #Incorect. Cele două borduri de un pixel fac și ele parte din lățimea exterioară.
+~220px #Incorect. Aceasta include doar jumătate din padding și omite bordurile.
+~200px #Incorect. Aceasta ar fi lățimea exterioară sub dimensionarea border-box.
+=242px #Corect. Adună 200 conținut, 40 padding și 2 bordură.
+}
+
+::u04-i2-important::Ar trebui să repari conflictele din propriul CSS adăugând `!important`. {FALSE #Incorect. Corectează selectorii, straturile sau declarațiile conflictuale. Rezervă suprascrierile importante stilurilor externe pe care nu le poți modifica, precum stilurile inline normale injectate de o bibliotecă. #Corect. Corectează selectorii, straturile sau declarațiile conflictuale. Rezervă suprascrierile importante stilurilor externe pe care nu le poți modifica, precum stilurile inline normale injectate de o bibliotecă.}
+
+::u04-i2-specificity-tie::Un paragraf este copil direct al unui div. În același strat, regulile normale ale autorului apar astfel: `div > p` stabilește culoarea navy, apoi `div p` stabilește culoarea teal. Ce culoare câștigă? {
+~Navy, deoarece selectorul de copil direct selectează o mulțime mai restrânsă #Incorect. Restrângerea logică nu mărește specificitatea CSS; combinatorii nu adaugă pondere.
+~Navy, deoarece prima regulă aplicabilă câștigă #Incorect. Declarația ulterioară câștigă când specificitatea și comparațiile anterioare sunt egale.
+=Teal, deoarece ambii selectori au specificitatea (0, 0, 2), iar declarația teal apare ulterior #Corect. Fiecare selector numără două nume de elemente; niciun combinator nu adaugă specificitate.
+~Nicio culoare, deoarece specificitatea egală anulează ambele reguli #Incorect. În acest caz, egalitatea de specificitate este rezolvată prin ordinea apariției.
+}
+
+$CATEGORY: Tehnologii Web/Unitatea 04/Intermezzo 3
+
+::u04-i3-layout-tool::Ce sistem de aranjare exprimă cel mai bine rânduri și coloane coordonate de carduri? {
+~Flexbox cu trecere pe mai multe linii #Incorect. Fiecare linie flex își distribuie elementele independent; nu coordonează coloanele între rânduri.
+~Poziționarea absolută #Incorect. Scoate elementele din fluxul normal și este fragilă pentru conținut schimbător.
+~Fluxul normal al blocurilor #Incorect. Blocurile se succed; acest lucru nu stabilește coloane coordonate.
+=CSS Grid #Corect. Grid definește relații bidimensionale între piste.
+}
+
+::u04-i3-breakpoint::Care este cel mai puternic motiv pentru introducerea unui breakpoint responsive? {
+~HTML-ul are mai mult de zece elemente. #Incorect. Numărul elementelor nu determină un breakpoint.
+=Conținutul devine înghesuit sau greu de folosit în spațiul disponibil. #Corect. Adaugă un breakpoint acolo unde aranjarea curentă trebuie schimbată.
+~Un tabel de dispozitive numește lățimea tabletă. #Incorect. Categoriile dispozitivelor nu descriu constrângerile acestui conținut.
+~Foaia de stil are nevoie de un număr rotund arbitrar. #Incorect. Un breakpoint are nevoie de justificare observabilă.
+}
+
+::u04-i3-reduced-motion::O regulă pentru mișcare redusă trebuie să elimine butonul însuși, astfel încât animația să nu poată avea loc. {FALSE #Incorect. Păstrează funcționalitatea și elimină sau reduce mișcarea neesențială. #Corect. Păstrează funcționalitatea și elimină sau reduce mișcarea neesențială.}
+
+::u04-i3-positioned-badge::Un card are position: relative. Insigna este copil direct al cardului și are position: absolute și deplasări top și right. Nicio altă proprietate nu stabilește un bloc de conținere. Ce afirmație descrie insigna? {
+~Își rezervă spațiul inițial și se deplasează față de acea poziție #Incorect. Aceasta descrie poziționarea relativă; poziționarea absolută elimină spațiul din fluxul normal.
+~Este obligatoriu ancorată de viewport #Incorect. Aici cardul poziționat relativ îi stabilește blocul de conținere.
+=Este poziționată în card și nu rezervă spațiu în fluxul normal #Corect. Cardul stabilește blocul de conținere și poate avea nevoie de padding pentru ca insigna să nu acopere textul.
+~Împinge în jos toate cardurile următoare cu înălțimea sa #Incorect. O insignă poziționată absolut nu participă la fluxul normal.
+}

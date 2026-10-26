@@ -1,0 +1,39 @@
+<!doctype html>
+<!--
+  Ghid didactic
+
+  Obiectiv: Elementele native expun nume, instrucțiuni, grupare și starea obligatorie prin relații HTML explicite.
+
+  Motivația structurii: Prezintă cel mai mic formular util, fără ca aranjarea CSS sau validarea personalizată să-i ascundă semantica.
+
+  Urmărește dovezile:
+  - Fiecare câmp are o etichetă asociată programatic.
+  - Instrucțiunea pentru e-mail este conectată prin `aria-describedby`.
+  - Butoanele radio înrudite sunt grupate prin `fieldset` și `legend`.
+  - Butonul trimite formularul fără o cale JavaScript disponibilă doar prin clic.
+-->
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Înscriere la atelier</title>
+  </head>
+  <body>
+    <main>
+      <h1>Înscriere la atelier</h1>
+      <form>
+        <p>
+          <label for="email">Adresă de e-mail</label>
+          <input id="email" name="email" type="email" required aria-describedby="email-help" />
+          <span id="email-help">Vom trimite aici legătura de participare.</span>
+        </p>
+        <fieldset>
+          <legend>Mod de participare</legend>
+          <label><input name="mode" type="radio" value="room" required /> În sală</label>
+          <label><input name="mode" type="radio" value="remote" /> La distanță</label>
+        </fieldset>
+        <button type="submit">Înscrie-te</button>
+      </form>
+    </main>
+  </body>
+</html>
