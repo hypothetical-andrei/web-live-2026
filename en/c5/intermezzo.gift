@@ -1,0 +1,84 @@
+$CATEGORY: Web Technologies/Unit 05/Intermezzo 1
+
+::u05-i1-route-match::Which pair determines an Express method-specific route match? {
+=The HTTP method and pathname #Correct. Query values are available separately after the pathname match.
+~Only the JSON body #Incorrect. The request body does not select the HTTP method and pathname.
+~Only the pathname #Incorrect. GET and POST on one pathname are different operations.
+~The response status and body #Incorrect. Those are produced after routing.
+}
+
+::u05-i1-middleware-response::Which middleware sequence risks sending two responses to the same request? {
+~Register a finish listener, then call next() #Incorrect. The listener observes completion; it does not send a response.
+~Send JSON, then return from the function #Incorrect. Returning stops local execution after sending.
+=Send JSON, then call next() into another handler that sends JSON #Correct. The later handler can attempt to send a second response.
+~Set a response header, then send JSON and return #Incorrect. Setting a header before sending is normal response construction.
+}
+
+::u05-i1-query-type::Express query values should be assumed to have the application's desired runtime types. {FALSE #Incorrect. Query input requires explicit parsing and validation. #Correct. Query input requires explicit parsing and validation.}
+
+::u05-i1-framework-choice::Why do you use Express instead of rebuilding routing and parsing with node:http in this lecture? {
+~Node cannot receive HTTP requests without Express #Incorrect. Node provides an HTTP server; Express builds reusable routing and middleware on top.
+=Express supplies recurring HTTP mechanisms while keeping an ordered function flow you can trace #Correct. You still choose the routes, input rules, and response behavior.
+~Express automatically decides the application's validation and resource design #Incorrect. Those remain application decisions.
+~Express makes all JavaScript handlers run in parallel #Incorrect. Synchronous work can still block the event-loop thread.
+}
+
+$CATEGORY: Web Technologies/Unit 05/Intermezzo 2
+
+::u05-i2-collection-order::You need the first two tasks whose titles contain notes, ordered by title. Which processing order selects the right page? {
+=Filter matching tasks, sort a copy with a stable tie-breaker, then take the first two #Correct. The page must come from the ordered set of matching tasks, without reordering storage.
+~Take the first two stored tasks, then filter and sort them #Incorrect. Matching tasks outside that initial slice are lost.
+~Filter, take two tasks, then sort only those two #Incorrect. Those may not be the first two tasks in the globally ordered matching set.
+~Sort the stored collection in place, then take two without filtering #Incorrect. This changes storage and ignores the requested filter.
+}
+
+::u05-i2-parsing-validation::express.json() parses a body as an array. The route then applies a Joi schema requiring an object with a string title. What follows? {
+~Parsing alone proves the request should receive 201 #Incorrect. Successful parsing does not establish that the operation accepts the value.
+~The array's elements have already been normalized into a title #Incorrect. JSON parsing does not perform that transformation.
+=The JSON syntax is valid, but the Joi object schema rejects the array #Correct. Parsing establishes syntax; the schema checks the operation's accepted shape.
+~Joi automatically wraps the array in the required object #Incorrect. The demonstrated schema does not turn an array into a create-task object.
+}
+
+::u05-i2-response-format::A collection supports JSON and CSV. Which request header expresses a preference for a CSV response? {
+~Content-Type: text/csv #Incorrect. On a request, Content-Type describes the request body.
+~Vary: Accept #Incorrect. The server uses Vary in a response to describe selection to caches.
+=Accept: text/csv #Correct. The server chooses a supported response format using Accept.
+~Location: text/csv #Incorrect. Location supplies a resource URI, not a media preference.
+}
+
+::u05-i2-openapi::You publish an OpenAPI document describing a required string title and no extra fields. What follows from publishing it alone? {
+~Express now rejects invalid titles automatically #Incorrect. Runtime validation still requires implementation or explicitly installed tooling.
+~Joi automatically imports the OpenAPI schema #Incorrect. A converter can derive OpenAPI from Joi, but Joi does not automatically import OpenAPI.
+~The API is proven to match every documented response #Incorrect. You need checks against the running implementation.
+=External tools can read the operation description, but the server still needs validation and consistency checks #Correct. Description, implementation, and verification have different roles.
+}
+
+$CATEGORY: Web Technologies/Unit 05/Intermezzo 3
+
+::u05-i3-unexpected-error::What should a public response for an unexpected repository failure contain? {
+~Status 200 so the client does not see a failure #Incorrect. The status would misrepresent the outcome.
+~The raw thrown object serialized automatically #Incorrect. Arbitrary properties are not a safe public contract.
+=A stable generic internal-error shape without sensitive diagnostic details #Correct. Detailed diagnosis belongs in protected logs.
+~The complete stack trace and database connection string #Incorrect. This leaks internals and possibly secrets.
+}
+
+::u05-i3-headers-sent::What should centralized error middleware do when response headers have already been sent? {
+~Pretend the error did not occur. #Incorrect. Delegation preserves failure handling.
+~Call `response.json` again with a different status. #Incorrect. This risks a double-send failure.
+~Restart the Node process immediately. #Incorrect. That is not the normal way to handle a request failure.
+=Delegate the error with `next(error)` rather than write a second response. #Correct. The status and headers have already been sent.
+}
+
+::u05-i3-rest-maturity::An API identifies resources, uses HTTP methods and statuses correctly, and publishes OpenAPI. It exposes no hypermedia controls. What can you conclude using the Richardson model? {
+~Publishing OpenAPI establishes level 3 #Incorrect. An external API description does not supply controls in resource representations.
+=It demonstrates level-2 techniques; those facts alone do not establish full REST conformance #Correct. Hypermedia belongs to level 3, and the maturity model does not replace REST's architectural constraints.
+~Returning JSON alone establishes all REST constraints #Incorrect. JSON is an encoding, not an architectural guarantee.
+~Stateless requests forbid the server from storing resources #Incorrect. Resource state can persist; each request still carries the information needed to interpret it.
+}
+
+::u05-i3-async-forwarding::An Express 5 async route awaits a repository call that rejects before any response is sent. What happens? {
+=Express forwards the rejection to later error-handling middleware #Correct. The rejected promise belongs to the returned async handler.
+~The client automatically receives the repository's raw error object #Incorrect. Error middleware must choose a public response.
+~Express treats the rejection as a missing route #Incorrect. Route matching succeeded; execution failed.
+~Every error in any later timer is caught by the same promise #Incorrect. Unrelated callbacks need explicit error forwarding.
+}

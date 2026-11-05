@@ -1,0 +1,25 @@
+{
+  "name": "lecture-generated-openapi",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "generate": "node generate.js",
+    "prestart": "npm run generate",
+    "start": "node server.js",
+    "pretest": "npm run generate",
+    "test": "node --test check.test.js"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "joi": "17.13.8",
+    "joi-to-swagger": "6.2.0",
+    "swagger-ui-dist": "5.34.0"
+  },
+  "scarfSettings": {
+    "enabled": false
+  }
+}

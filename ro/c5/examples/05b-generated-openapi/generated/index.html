@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="ro">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Interfața API generată</title>
+    <link rel="stylesheet" href="/docs/assets/swagger-ui.css" />
+  </head>
+  <body>
+    <h1>Interfața API generată</h1>
+    <p><a href="/openapi.json">Specificație OpenAPI</a> · <a href="/client.js">Client JavaScript generat</a></p>
+    <div id="swagger-ui"></div>
+    <script src="/docs/assets/swagger-ui-bundle.js"></script>
+    <script>
+      window.ui = SwaggerUIBundle({
+        url: "/openapi.json",
+        dom_id: "#swagger-ui",
+        validatorUrl: null,
+      });
+    </script>
+  </body>
+</html>

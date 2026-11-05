@@ -1,0 +1,17 @@
+{
+  "name": "lecture-joi-openapi",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node --test check.test.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "joi": "17.13.8"
+  }
+}

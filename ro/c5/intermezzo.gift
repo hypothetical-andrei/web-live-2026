@@ -1,0 +1,84 @@
+$CATEGORY: Tehnologii Web/Unitatea 05/Intermezzo 1
+
+::u05-i1-route-match::Ce pereche determină potrivirea unei rute Express specifice unei metode? {
+=Metoda HTTP și calea #Corect. Valorile interogării sunt disponibile separat după potrivirea căii.
+~Doar corpul JSON #Incorect. Corpul cererii nu selectează metoda HTTP și calea.
+~Doar calea #Incorect. GET și POST pe aceeași cale sunt operații diferite.
+~Starea și corpul răspunsului #Incorect. Acestea sunt produse după rutare.
+}
+
+::u05-i1-middleware-response::Ce secvență din middleware riscă să trimită două răspunsuri aceleiași cereri? {
+~Înregistrează un ascultător finish, apoi apelează next() #Incorect. Ascultătorul observă finalizarea; nu trimite un răspuns.
+~Trimite JSON, apoi revine din funcție #Incorect. Revenirea oprește execuția locală după trimitere.
+=Trimite JSON, apoi apelează next() către alt gestionar care trimite JSON #Corect. Gestionarul ulterior poate încerca să trimită un al doilea răspuns.
+~Setează un antet, apoi trimite JSON și revine #Incorect. Setarea antetului înainte de trimitere este o construire normală a răspunsului.
+}
+
+::u05-i1-query-type::Trebuie presupus că valorile interogării Express au tipurile dorite de aplicație în execuție. {FALSE #Incorect. Intrarea interogării necesită parsare și validare explicite. #Corect. Intrarea interogării necesită parsare și validare explicite.}
+
+::u05-i1-framework-choice::De ce folosești Express în loc să reconstruiești rutarea și parsarea cu node:http în acest curs? {
+~Node nu poate primi cereri HTTP fără Express #Incorect. Node oferă un server HTTP; Express adaugă rutare și middleware reutilizabile.
+=Express oferă mecanisme HTTP recurente și un flux ordonat de funcții pe care îl poți urmări #Corect. Tu alegi în continuare rutele, regulile de intrare și răspunsurile.
+~Express decide automat validarea și proiectarea resurselor aplicației #Incorect. Acestea rămân decizii ale aplicației.
+~Express execută toate funcțiile JavaScript în paralel #Incorect. Lucrul sincron poate bloca în continuare firul buclei de evenimente.
+}
+
+$CATEGORY: Tehnologii Web/Unitatea 05/Intermezzo 2
+
+::u05-i2-collection-order::Ai nevoie de primele două sarcini ale căror titluri conțin notes, ordonate după titlu. Ce ordine a procesării selectează pagina corectă? {
+=Filtrează potrivirile, sortează o copie cu departajare stabilă, apoi ia primele două #Corect. Pagina trebuie extrasă din mulțimea ordonată a potrivirilor, fără reordonarea stocării.
+~Ia primele două sarcini stocate, apoi filtrează-le și sortează-le #Incorect. Pierzi potrivirile aflate în afara acelei porțiuni inițiale.
+~Filtrează, ia două sarcini, apoi sortează doar acele două #Incorect. Este posibil să nu fie primele două sarcini din întreaga mulțime ordonată a potrivirilor.
+~Sortează colecția stocată direct, apoi ia două fără filtrare #Incorect. Modifici stocarea și ignori filtrul cerut.
+}
+
+::u05-i2-parsing-validation::express.json() parsează corpul ca tablou. Ruta aplică apoi o schemă Joi care cere un obiect cu titlu șir. Ce rezultă? {
+~Parsarea singură dovedește că cererea trebuie să primească 201 #Incorect. Parsarea reușită nu stabilește că operația acceptă valoarea.
+~Elementele tabloului au fost deja normalizate într-un titlu #Incorect. Parsarea JSON nu face acea transformare.
+=Sintaxa JSON este validă, dar schema Joi pentru obiect respinge tabloul #Corect. Parsarea stabilește sintaxa; schema verifică forma acceptată de operație.
+~Joi învelește automat tabloul în obiectul cerut #Incorect. Schema demonstrată nu transformă un tablou într-un obiect pentru crearea unei sarcini.
+}
+
+::u05-i2-response-format::O colecție oferă JSON și CSV. Ce antet din cerere exprimă preferința pentru un răspuns CSV? {
+~Content-Type: text/csv #Incorect. Într-o cerere, Content-Type descrie corpul cererii.
+~Vary: Accept #Incorect. Serverul folosește Vary în răspuns pentru a descrie selecția cache-urilor.
+=Accept: text/csv #Corect. Serverul alege un format disponibil folosind Accept.
+~Location: text/csv #Incorect. Location oferă un URI de resursă, nu o preferință media.
+}
+
+::u05-i2-openapi::Publici un document OpenAPI care descrie un titlu șir obligatoriu și interzice câmpurile suplimentare. Ce rezultă doar din publicarea lui? {
+~Express respinge acum automat titlurile invalide #Incorect. Validarea în execuție cere implementare sau instrumente instalate explicit.
+~Joi importă automat schema OpenAPI #Incorect. Un convertor poate deriva OpenAPI din Joi, dar Joi nu importă automat OpenAPI.
+~Este dovedit că API-ul respectă fiecare răspuns documentat #Incorect. Ai nevoie de verificări ale implementării în execuție.
+=Instrumentele externe pot citi descrierea operației, dar serverul are în continuare nevoie de validare și verificări de consistență #Corect. Descrierea, implementarea și verificarea au roluri diferite.
+}
+
+$CATEGORY: Tehnologii Web/Unitatea 05/Intermezzo 3
+
+::u05-i3-unexpected-error::Ce trebuie să conțină răspunsul public pentru un eșec neașteptat al repository-ului? {
+~Starea 200 pentru ca utilizatorul să nu vadă eșecul #Incorect. Starea ar reprezenta greșit rezultatul.
+~Obiectul aruncat brut, serializat automat #Incorect. Proprietățile arbitrare nu sunt un contract public sigur.
+=O formă generică și stabilă de eroare internă, fără detalii diagnostice sensibile #Corect. Diagnosticul detaliat aparține jurnalelor protejate.
+~Stack trace-ul complet și șirul conexiunii la baza de date #Incorect. Aceasta expune detalii interne și posibil secrete.
+}
+
+::u05-i3-headers-sent::Ce trebuie să facă middleware-ul centralizat când antetele răspunsului au fost deja trimise? {
+~Să pretindă că eroarea nu a avut loc. #Incorect. Delegarea păstrează tratarea eșecului.
+~Să apeleze din nou `response.json` cu altă stare. #Incorect. Aceasta riscă o trimitere dublă.
+~Să repornească imediat procesul Node. #Incorect. Nu este modul normal de a trata eșecul unei cereri.
+=Să delege eroarea prin `next(error)`, nu să scrie alt răspuns. #Corect. Statusul și antetele au fost deja trimise.
+}
+
+::u05-i3-rest-maturity::Un API identifică resurse, folosește corect metode și statusuri HTTP și publică OpenAPI. Nu expune controale hipermedia. Ce poți concluziona prin modelul Richardson? {
+~Publicarea OpenAPI stabilește nivelul 3 #Incorect. O descriere externă a API-ului nu oferă controale în reprezentările resurselor.
+=Demonstrează tehnici de nivel 2; aceste fapte singure nu stabilesc conformitatea REST completă #Corect. Hipermedia aparține nivelului 3, iar modelul de maturitate nu înlocuiește constrângerile arhitecturale REST.
+~Simpla întoarcere de JSON stabilește toate constrângerile REST #Incorect. JSON este o codificare, nu o garanție arhitecturală.
+~Cererile fără stare conversațională interzic stocarea resurselor pe server #Incorect. Starea resurselor poate persista; fiecare cerere furnizează totuși informația necesară interpretării ei.
+}
+
+::u05-i3-async-forwarding::O rută async Express 5 așteaptă un apel către repository care respinge promisiunea înainte de trimiterea răspunsului. Ce se întâmplă? {
+=Express transmite respingerea middleware-ului de eroare înregistrat ulterior #Corect. Promisiunea respinsă aparține funcției async returnate de gestionar.
+~Clientul primește automat obiectul brut al erorii #Incorect. Middleware-ul de eroare trebuie să aleagă răspunsul public.
+~Express tratează respingerea ca pe o rută lipsă #Incorect. Ruta s-a potrivit; execuția a eșuat.
+~Orice eroare din orice timer ulterior este prinsă de aceeași promisiune #Incorect. Callback-urile independente cer propagare explicită.
+}
