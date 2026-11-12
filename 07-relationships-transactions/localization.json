@@ -1,0 +1,16 @@
+{
+  "sourceLocale": "en",
+  "sourceFingerprint": "219c158c64877c8ff67008adc21305fb2aa492e6c183422aa66b888c26347bb4",
+  "locales": {
+    "en": "complete",
+    "ro": "in-progress"
+  },
+  "localizedTrees": [
+    "."
+  ],
+  "localizedFiles": [
+    "README.md",
+    "checkpoints.gift"
+  ],
+  "notes": "The complete Romanian tutorial tree is translated, including the guide, both GIFT checkpoint groups, all three projects, specifications, visible HTML, fixtures, runtime/error prose, comments, and tests. Final review is deferred. The 2026-10-20 wording review clarifies student tasks, editable files and verification, labels author-only preparation, and preserves classroom/follow-up timing. Runtime and tests are unchanged; final locale review remains pending."
+}
