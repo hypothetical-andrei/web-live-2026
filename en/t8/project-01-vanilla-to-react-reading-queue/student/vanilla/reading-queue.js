@@ -1,0 +1,11 @@
+export function mountReadingQueue(root, { storage, initialItems, createItemId }) {
+  let items; let filter = "all";
+  try { const parsed = JSON.parse(storage.getItem("reading-queue")); items = Array.isArray(parsed) ? parsed : structuredClone(initialItems); } catch { items = structuredClone(initialItems); }
+  root.innerHTML = `<main><h1>Reading queue</h1><form><label>Book title <input name="title"></label><button>Add book</button></form><div class="filters" aria-label="Reading filters"></div><div class="list"></div></main>`;
+  const persist = () => storage.setItem("reading-queue", JSON.stringify(items));
+  const render = () => { const counts = { all: items.length, remaining: items.filter((item) => !item.read).length, read: items.filter((item) => item.read).length }; root.querySelector(".filters").innerHTML = ["all", "remaining", "read"].map((name) => `<button type="button" data-filter="${name}" aria-pressed="${filter === name}">${name[0].toUpperCase() + name.slice(1)} (${counts[name]})</button>`).join(""); const visible = items.filter((item) => filter === "all" || (filter === "read" ? item.read : !item.read)); root.querySelector(".list").innerHTML = visible.length ? `<ul>${visible.map((item) => `<li><label><input type="checkbox" data-toggle="${item.id}" ${item.read ? "checked" : ""}>${item.title}</label><button data-remove="${item.id}">Remove ${item.title}</button></li>`).join("")}</ul>` : `<p role="status">No books in this view.</p>`; };
+  root.addEventListener("submit", (event) => { event.preventDefault(); const input = root.querySelector("[name=title]"); const title = input.value.trim(); if (!title) return; items = [...items, { id: createItemId(), title, read: false }]; input.value = ""; persist(); render(); });
+  root.addEventListener("click", (event) => { const button = event.target.closest("button"); if (!button) return; if (button.dataset.filter) filter = button.dataset.filter; if (button.dataset.remove) { items = items.filter((item) => item.id !== button.dataset.remove); persist(); } render(); });
+  root.addEventListener("change", (event) => { if (!event.target.dataset.toggle) return; items = items.map((item) => item.id === event.target.dataset.toggle ? { ...item, read: !item.read } : item); persist(); render(); });
+  render(); return { getItems: () => structuredClone(items) };
+}

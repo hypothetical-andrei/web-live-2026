@@ -1,0 +1,1 @@
+:root { font-family: system-ui, sans-serif; background: #f2f5fa; color: #162033; } section { max-width: 38rem; margin: 3rem auto; padding: 1.5rem; background: white; } label, input { display: block; } input { box-sizing: border-box; width: 100%; padding: .6rem; } [role="alert"] { color: #9b1c1c; }

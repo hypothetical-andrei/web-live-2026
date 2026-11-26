@@ -1,0 +1,2 @@
+const topics = [{ id: "1", title: "Starea React" }, { id: "2", title: "Curățarea efectului" }, { id: "3", title: "Starea HTTP" }];
+export async function demoSearch(query, { signal }) { await new Promise((resolve, reject) => { const timer = setTimeout(resolve, 200); signal.addEventListener("abort", () => { clearTimeout(timer); reject(new DOMException("Aborted", "AbortError")); }, { once: true }); }); return topics.filter((topic) => topic.title.toLowerCase().includes(query.toLowerCase())); }

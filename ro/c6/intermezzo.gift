@@ -1,0 +1,79 @@
+$CATEGORY: Web Technologies/Unit 06/Intermezzo 1
+
+::u06-i1-not-null::Ce stabilește `allowNull: false` pentru atributul unui model? {
+~Cererea HTTP conține JSON valid #Incorect. Verificarea formatului JSON este separată de regulile modelului.
+~Fiecare șir trebuie să fie nevid #Incorect. Un șir gol nu este null.
+=Valoarea stocată sau din model nu poate fi null #Corect. Sunt necesari și alți validatori pentru valori nenule goale sau incorecte.
+~Valoarea este unică între rânduri #Incorect. Unicitatea este o constrângere separată.
+}
+
+::u06-i1-unique::Ce constrângere împiedică repetarea unui slug în două rânduri? {
+~O ordine de sortare #Incorect. Sortarea nu împiedică salvarea valorilor duplicate.
+=O constrângere sau un index unic #Corect. Împiedică salvarea aceleiași valori în două rânduri.
+~O valoare implicită #Incorect. Valorile implicite completează valori omise, nu compară rânduri.
+~Un obiect care grupează datele răspunsului HTTP #Incorect. Reprezentarea HTTP nu poate impune unicitatea în baza de date.
+}
+
+::u06-i1-layered-validation::Constrângerile modelului fac complet inutilă validarea HTTP. {FALSE #Incorect. Verificările HTTP ajută clientul; validatorii acoperă scrierile validate prin model, iar constrângerile SQL acoperă și scrierile directe. #Corect. Verificările HTTP ajută clientul; validatorii acoperă scrierile validate prin model, iar constrângerile SQL acoperă și scrierile directe.}
+
+::u06-i1-custom-validator::O notă arhivată trebuie să aibă archiveReason cu text nevid. Unde definești regula din exemplu și cum semnalezi că nu este respectată? {
+~Doar în tipul SQL al coloanei archived #Incorect. Tipul boolean nu exprimă relația cu alt câmp.
+~Într-o funcție săgeată pe model care întoarce false #Incorect. Returnarea lui false nu semnalează eșecul validării, iar funcția săgeată nu are acces la instanță prin propriul this.
+~Într-un defaultValue care schimbă automat archived în false #Incorect. Valoarea implicită se folosește când câmpul nu este furnizat; nu trebuie să anuleze modificarea cerută.
+=Într-o metodă de validare din opțiunile modelului care citește this.archived și this.archiveReason și aruncă eroare la eșec #Corect. Regula verifică împreună valorile pe care instanța le-ar salva înaintea scrierii validate.
+}
+
+$CATEGORY: Web Technologies/Unit 06/Intermezzo 2
+
+::u06-i2-reset-policy::Când este cea mai potrivită sincronizarea forțată în acest curs? {
+=În timpul unei resetări izolate explicite în care se intenționează ștergerea rândurilor #Corect. Ștergerea și recrearea tabelelor trebuie să fie o alegere explicită.
+~La fiecare pornire normală a aplicației #Incorect. Aceasta ar șterge datele salvate la fiecare repornire.
+~Ori de câte ori listarea nu întoarce rânduri #Incorect. Un rezultat gol nu permite ștergerea schemei.
+~După fiecare cerere de creare reușită #Incorect. Aceasta ar șterge datele aplicației.
+}
+
+::u06-i2-await-write::De ce trebuie ca o funcție de acces la date să aștepte `Model.create` înainte să raporteze succesul? {
+~Pentru a ocoli validarea modelului #Incorect. Create validează înaintea inserării.
+~Pentru a transforma orice rezultat într-o variabilă globală #Incorect. Await nu are acest scop.
+=Pentru a aștepta rezultatul scrierii și a prinde respingerea acolo unde aplicația o tratează #Corect. Nu raporta succes înaintea încheierii operației în baza de date.
+~Pentru a face operația sincronă pentru întregul proces #Incorect. Await suspendă o singură continuare asincronă.
+}
+
+::u06-i2-detach::De ce întoarce o funcție de acces la date un obiect simplu, cu câmpuri alese explicit, în loc de o instanță ORM? {
+~Pentru a împiedica orice modificare a obiectelor JavaScript #Incorect. Obiectul simplu întors poate fi modificat dacă nu este înghețat.
+~Pentru a păstra conexiunea deschisă permanent #Incorect. Transformarea rezultatului într-un obiect simplu nu ține conexiunea deschisă.
+~Pentru a elimina rândul din baza de date #Incorect. Transformarea rezultatului într-un obiect simplu nu șterge rândul din bază.
+=Pentru a întoarce câmpuri publice explicite fără ca apelantul să folosească metodele instanței ORM #Corect. Un obiect simplu poate conține încă date interne dacă aplicația nu selectează ce expune.
+}
+
+::u06-i2-operator-symbols::Într-o condiție Sequelize, ce înseamnă cheia [Op.gt] și ce se întâmplă dacă serializezi obiectul cu JSON.stringify? {
+~Este șirul "Op.gt", păstrat automat în JSON #Incorect. Parantezele evaluează Op.gt, iar valoarea sa este un simbol.
+=Este o cheie simbol pentru operatorul mai mare decât; JSON.stringify omite această proprietate #Corect. Folosește simbolul exportat de Sequelize și inspectează-l cu console.dir sau Reflect.ownKeys.
+~Este o comparație JavaScript executată înaintea interogării #Incorect. Obiectul descrie o condiție pe care Sequelize o traduce în SQL.
+~Este echivalentă cu orice simbol nou creat prin Symbol("gt") #Incorect. Un simbol nou nu este simbolul exportat de Sequelize.
+}
+
+$CATEGORY: Web Technologies/Unit 06/Intermezzo 3
+
+::u06-i3-sort-allowlist::Cum ar trebui să ajungă o valoare HTTP precum `archived\=true` la un raport SQL direct? {
+~Plasează instrucțiunea SQL în componenta de prezentare. #Incorect. SQL aparține stratului de persistență.
+~Concatenează parametrul de interogare în instrucțiunea SQL. #Incorect. Valorile primite de la client nu trebuie să devină sintaxă SQL.
+=Validează sintaxa booleană acceptată, convertește valoarea și transmite-o prin opțiunea replacements, folosind un parametru numit. #Corect. Validarea stabilește ce valori acceptă API-ul; parametrizarea separă valoarea de sintaxa SQL.
+~Tratează orice șir nevid ca true. #Incorect. API-ul acceptă doar valorile booleene documentate, nu șiruri arbitrare evaluate ca adevărate.
+}
+
+::u06-i3-query-page::Un filtru compus a selectat exact trei rânduri, cu (id, priority): (1, 4), (2, 4), (6, 3). Folosești findAndCountAll fără group, cu priority DESC, id ASC, offset 1 și limit 2. Ce ID-uri conține pagina și ce valoare are count? {
+~ID-urile 1 și 2; count este 3 #Incorect. offset 1 omite primul rând după sortare.
+=ID-urile 2 și 6; count este 3 #Corect. ID-ul departajează prioritățile egale; pagina omite rândul 1, iar count numără toate potrivirile înainte de paginare.
+~ID-urile 2 și 6; count este 2 #Incorect. 2 este lungimea paginii, nu totalul întors de interogarea COUNT separată.
+~ID-urile 6 și 2; count este 3 #Incorect. Prioritatea este descrescătoare; rândul 6 urmează după rândurile cu prioritate 4.
+}
+
+::u06-i3-error-safety::O eroare SQLite neașteptată trebuie întoarsă clienților împreună cu SQL-ul și calea de stocare, pentru diagnosticare. {FALSE #Incorect. Păstrează detaliile în jurnale protejate și expune un răspuns de eroare fără detalii interne. #Corect. Păstrează detaliile în jurnale protejate și expune un răspuns de eroare fără detalii interne.}
+
+::u06-i3-error-order::UniqueConstraintError extinde ValidationError în Sequelize 6. În ce ordine verifici tipurile de eroare pentru a răspunde cu 409 la un conflict de unicitate? {
+=Verifică UniqueConstraintError înaintea clasei mai generale ValidationError #Corect. Altfel ramura generală poate prinde și subclasa și ascunde conflictul.
+~Verifică întâi ValidationError și întoarce 400 pentru orice potrivire #Incorect. Acea ramură prinde și subclasa de unicitate.
+~Ignoră clasele și caută în mesajele brute ale bazei #Incorect. Textul variază și poate conține detalii sensibile.
+~Întoarce SQL-ul oricărei erori cu status 200 #Incorect. Expui diagnosticul și raportezi greșit scrierea eșuată.
+}

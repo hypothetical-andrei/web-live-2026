@@ -1,0 +1,79 @@
+$CATEGORY: Web Technologies/Unit 06/Intermezzo 1
+
+::u06-i1-not-null::What does `allowNull: false` establish for a model attribute? {
+~The HTTP request has valid JSON #Incorrect. HTTP parsing is outside the model constraint.
+~Every string must be nonblank #Incorrect. An empty string is not null.
+=The stored/model value may not be null #Correct. Other validators are still needed for blank or malformed non-null values.
+~The value is unique across rows #Incorrect. Uniqueness is a separate constraint.
+}
+
+::u06-i1-unique::Which constraint protects a slug from being repeated in two rows? {
+~A sort order #Incorrect. Ordering does not restrict stored state.
+=A unique constraint or unique index #Correct. It protects cross-row duplication at the persistence boundary.
+~A default value #Incorrect. Defaults fill omitted values rather than compare rows.
+~A response envelope #Incorrect. HTTP representation cannot enforce database uniqueness.
+}
+
+::u06-i1-layered-validation::Model constraints make HTTP validation entirely unnecessary. {FALSE #Incorrect. HTTP checks improve client feedback; model validators cover validated model writes, while SQL constraints also cover direct database writes. #Correct. HTTP checks improve client feedback; model validators cover validated model writes, while SQL constraints also cover direct database writes.}
+
+::u06-i1-custom-validator::An archived note must have a nonblank archiveReason. Where does the demonstrated rule belong, and how does it fail? {
+~Only in the archived column's SQL type #Incorrect. A boolean type does not express a relationship with another field.
+~In a model-wide arrow function that returns false #Incorrect. Returning false does not reject validation, and an arrow function does not receive the instance's this binding.
+~In a defaultValue that silently clears archived #Incorrect. A default fills an omitted value; it should not silently undo a requested state.
+=In a model-wide method that reads this.archived and this.archiveReason and throws on failure #Correct. The rule checks the proposed instance's combined values before a validated write.
+}
+
+$CATEGORY: Web Technologies/Unit 06/Intermezzo 2
+
+::u06-i2-reset-policy::When is force synchronization most appropriate in this course? {
+=During an explicit isolated reset where deleting existing rows is intended #Correct. Destructive recreation must be deliberate.
+~On every normal application startup #Incorrect. That silently destroys durable state.
+~Whenever a list query returns no rows #Incorrect. An empty result is not permission to drop schema.
+~After every successful create request #Incorrect. That would erase application data.
+}
+
+::u06-i2-await-write::Why must a store await `Model.create` before returning success? {
+~To bypass model validation #Incorrect. Create performs validation before insertion.
+~To convert every database result into a global variable #Incorrect. Await has no such purpose.
+=To wait for the write outcome and catch a rejection where the application handles it #Correct. Do not report success before the database operation settles.
+~To make the operation synchronous for the whole process #Incorrect. Await suspends one async continuation.
+}
+
+::u06-i2-detach::Why return plain detached data from a store? {
+~To disable all JavaScript object mutation #Incorrect. The returned plain object can still be changed unless frozen.
+~To keep the database connection open forever #Incorrect. Detachment does not own connection lifetime.
+~To remove the row from the database #Incorrect. Detachment does not delete stored data.
+=To return explicit public fields without requiring callers to use ORM instance methods #Correct. A plain object can still contain internal fields unless the application deliberately selects what to expose.
+}
+
+::u06-i2-operator-symbols::In a Sequelize condition, what does the key [Op.gt] mean, and what happens if you serialize the object with JSON.stringify? {
+~It is the string "Op.gt", automatically preserved in JSON #Incorrect. The brackets evaluate Op.gt, whose value is a symbol.
+=It is a symbol key for greater-than; JSON.stringify omits that property #Correct. Use Sequelize's exported symbol and inspect it with console.dir or Reflect.ownKeys.
+~It is a JavaScript comparison executed before the query #Incorrect. The object describes a condition that Sequelize translates into SQL.
+~It is equivalent to any new symbol created with Symbol("gt") #Incorrect. A fresh symbol is not the symbol exported by Sequelize.
+}
+
+$CATEGORY: Web Technologies/Unit 06/Intermezzo 3
+
+::u06-i3-sort-allowlist::How should an HTTP value such as `archived\=true` reach a raw SQL report? {
+~Place the SQL statement in the presentation component. #Incorrect. SQL belongs in the persistence layer.
+~Concatenate the query parameter into the SQL statement. #Incorrect. Untrusted values must not become SQL syntax.
+=Validate the accepted boolean syntax, translate it, and pass the value through a named replacement. #Correct. Validation defines the public query language; parameterization keeps the value separate from SQL syntax.
+~Pass any nonempty string as true. #Incorrect. The public contract accepts exact boolean syntax rather than arbitrary truthy strings.
+}
+
+::u06-i3-query-page::A compound filter matched exactly three rows, with (id, priority): (1, 4), (2, 4), (6, 3). You use findAndCountAll without group, ordering priority DESC, id ASC, with offset 1 and limit 2. Which IDs are in the page, and what is count? {
+~IDs 1 and 2; count is 3 #Incorrect. offset 1 skips the first row after sorting.
+=IDs 2 and 6; count is 3 #Correct. ID resolves equal priorities; the page skips row 1, while count includes all matches before pagination.
+~IDs 2 and 6; count is 2 #Incorrect. 2 is the page length, not the total from the separate COUNT query.
+~IDs 6 and 2; count is 3 #Incorrect. Priority is descending; row 6 follows the priority-4 rows.
+}
+
+::u06-i3-error-safety::An unexpected SQLite error should be returned to clients with its SQL and storage path for diagnosis. {FALSE #Incorrect. Preserve details in protected logs and expose a sanitized public error. #Correct. Preserve details in protected logs and expose a sanitized public error.}
+
+::u06-i3-error-order::UniqueConstraintError extends ValidationError in Sequelize 6. Which classification order preserves a distinct 409 conflict response? {
+=Check UniqueConstraintError before the broader ValidationError #Correct. Otherwise the broad validation branch can also catch the subclass and hide the conflict.
+~Check ValidationError first and return 400 for every match #Incorrect. That branch also matches the uniqueness subclass.
+~Ignore both classes and search raw database messages #Incorrect. Message text varies and may contain sensitive details.
+~Return every error's SQL text with status 200 #Incorrect. This both leaks diagnostics and misreports the failed write.
+}

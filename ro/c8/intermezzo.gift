@@ -1,0 +1,58 @@
+$CATEGORY: Web Technologies/Unit 08/Intermezzo 1
+
+::u08-i1-element::Ce returnează o componentă React în timpul randării? {
+~Întotdeauna un nod DOM preexistent #Incorect. Elementele sunt descrieri, nu neapărat obiecte DOM.
+~O tranzacție cu baza de date #Incorect. Persistența nu are legătură cu randarea.
+=O descriere a elementelor pe care React le poate reconcilia #Corect. React aplică ulterior modificările necesare mediului gazdă.
+~Un set de date global modificabil #Incorect. Ieșirea componentei ar trebui să urmeze proprietățile și starea.
+}
+
+::u08-i1-props::Cum ar trebui, în mod normal, un copil să solicite schimbarea stării deținute de părinte? {
+~Să interogheze și să rescrie DOM-ul în afara React #Incorect. Aceasta ocolește proprietatea declarativă.
+~Să modifice direct obiectul proprietății #Incorect. Proprietățile sunt intrări doar în citire.
+=Să apeleze o proprietate callback care exprimă intenția utilizatorului #Corect. Părintele rămâne proprietarul stării.
+~Să importe setul de date privat al părintelui #Incorect. Aceasta ascunde limita componentei.
+}
+
+::u08-i1-pure-render::Pornirea unui fetch direct în timpul randării păstrează puritatea randării. {FALSE #Incorect. Sincronizarea externă aparține unui efect deținut sau limitei unui eveniment. #Corect. Sincronizarea externă aparține unui efect deținut sau limitei unui eveniment.}
+
+$CATEGORY: Web Technologies/Unit 08/Intermezzo 2
+
+::u08-i2-derived::Care valoare este în mod normal derivată, nu stare separată? {
+~Starea unei cereri în curs #Incorect. Aceasta se schimbă în timp pe baza activității externe.
+~Un filtru selectat de utilizator #Incorect. Selecția utilizatorului persistă ca stare.
+~Textul curent al unui input controlat #Incorect. Utilizatorul îl editează între randări, deci este stare deținută.
+=Numărul elementelor nefinalizate calculat din tabloul curent de elemente #Corect. Are o singură intrare autoritară și poate fi calculat în timpul randării.
+}
+
+::u08-i2-functional-update::Când este potrivită în mod special forma funcțională a actualizării stării? {
+~Numai la randarea marcajului static #Incorect. Randarea statică nu necesită o tranziție de stare.
+~Când se modifică direct tabloul anterior #Incorect. Tranziția ar trebui să returneze o stare înlocuitoare.
+~Pentru a crea dependența unui efect #Incorect. Forma actualizării și dependențele efectului rezolvă probleme diferite.
+=Când valoarea următoare depinde de valoarea anterioară #Corect. React furnizează starea curentă relevantă tranziției.
+}
+
+::u08-i2-key::De ce este indexul unui tablou o cheie slabă pentru o listă care se poate reordona? {
+=Identifică poziția, astfel încât identitatea locală a rândului se poate muta la alt element din domeniu. #Corect. ID-urile stabile din domeniu păstrează identitatea elementelor surori.
+~Indexurile nu pot fi reprezentate în JavaScript. #Incorect. Ele există, dar exprimă identitatea greșită.
+~Cheile-index împiedică orice randare. #Incorect. Randarea are loc în continuare; asocierea poate fi greșită.
+~React trimite cheile-index către baza de date. #Incorect. Cheile sunt interne reconcilierii elementelor surori.
+}
+
+$CATEGORY: Web Technologies/Unit 08/Intermezzo 3
+
+::u08-i3-effect-purpose::Care activitate este o responsabilitate potrivită pentru un efect? {
+~Maparea elementelor la elemente JSX #Incorect. Aceasta aparține randării.
+~Calcularea tabloului vizibil filtrat din elementele și filtrul curente #Incorect. Aceasta este o valoare derivată la randare.
+=Sincronizarea tabloului curent de elemente cu stocarea browserului #Corect. Stocarea este un sistem extern.
+~Alegerea textului unui titlu dintr-o proprietate #Incorect. Randarea îl poate calcula direct.
+}
+
+::u08-i3-cleanup::Ce ar trebui să se întâmple cu un timer de debounce deținut de efect când interogarea sa se schimbă? {
+~Timerul ar trebui să ruleze întotdeauna și să publice rezultate vechi. #Incorect. Aceasta creează comportament învechit.
+=Curățarea ar trebui să oprească vechiul timer înainte de programarea sincronizării pentru noua interogare. #Corect. Activitatea învechită își pierde proprietarul.
+~Componenta ar trebui să modifice DOM-ul pentru a-l ascunde. #Incorect. Proprietatea timerului nu este o problemă de stilizare DOM.
+~Tabloul de dependențe ar trebui șters. #Incorect. Dependențele descriu intrările reactive.
+}
+
+::u08-i3-vite-build::O compilare Vite de producție reușită demonstrează că interacțiunile React și curățarea efectelor sunt corecte. {FALSE #Incorect. Succesul compilării demonstrează sănătatea infrastructurii/modulelor, nu corectitudinea comportamentului. #Corect. Succesul compilării demonstrează sănătatea infrastructurii/modulelor, nu corectitudinea comportamentului.}

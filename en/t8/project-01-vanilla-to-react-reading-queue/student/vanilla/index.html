@@ -1,0 +1,1 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Vanilla reading queue</title><body><div id="app"></div><script type="module">import { mountReadingQueue } from './reading-queue.js'; mountReadingQueue(document.querySelector('#app'), { storage: localStorage, initialItems: [], createItemId: () => crypto.randomUUID() });</script></body></html>

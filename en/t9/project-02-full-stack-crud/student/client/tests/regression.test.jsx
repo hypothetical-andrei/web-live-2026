@@ -1,0 +1,4 @@
+import { readFile } from "node:fs/promises";
+import { expect, it } from "vitest";
+it("entry injects the supplied API adapter into the workspace", async () => { const source = await readFile("client/src/main.jsx", "utf8"); expect(source).toMatch(/<NotesWorkspace\s+api=\{createNotesApi\(\)\}/); });
+it("HTTP and UI knowledge stay on opposite sides of the adapter boundary", async () => { const workspace = await readFile("client/src/NotesWorkspace.jsx", "utf8"); expect(workspace).not.toMatch(/fetch\(|(?:response|error)\.status|\.status\s*[=!]==?\s*\d|Content-Type|\/api\//); const adapter = await readFile("client/src/notes-api.js", "utf8"); expect(adapter).not.toMatch(/useState|useEffect|<main|<form/); const server = await readFile("server/app.js", "utf8"); expect(server).not.toMatch(/useState|useEffect|createRoot|<main|<form/); });

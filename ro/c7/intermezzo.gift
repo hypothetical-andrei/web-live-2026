@@ -1,0 +1,84 @@
+$CATEGORY: Web Technologies/Unit 07/Intermezzo 1
+
+::u07-i1-one-many-key::Într-o relație unu-la-mulți între conferință și sesiuni, unde se află de obicei `conferenceId`? {
+~Pe fiecare rând al participantului #Incorect. Participarea este o altă relație.
+~Numai în răspunsul HTTP #Incorect. Relația dintre tabele necesită o cheie stocată în baza de date.
+~Numai pe rândul conferinței #Incorect. O singură coloană nu poate identifica un set arbitrar de sesiuni.
+=Pe fiecare rând al sesiunii #Corect. Fiecare sesiune păstrează ID-ul conferinței căreia îi aparține.
+}
+
+::u07-i1-ticket-type::Unde trebuie stocat tipul de bilet care poate diferi pentru fiecare relație participant–sesiune? {
+~Pe titlul conferinței #Incorect. Acesta este un atribut fără legătură al părintelui.
+=Pe rândul de legătură al înscrierii #Corect. Descrieți o anumită înscriere.
+~Pe participant #Incorect. Același participant poate avea tipuri diferite între sesiuni.
+~Pe sesiune #Incorect. Participanții aceleiași sesiuni pot avea tipuri diferite.
+}
+
+::u07-i1-composite-unique::O constrângere unică compusă pe ID-ul sesiunii și ID-ul participantului previne înscrierile duplicate. {TRUE #Corect. Constrângerea perechii respinge înscrierea duplicată chiar când verificările aplicației se suprapun. #Incorect. ID-urile generate diferite nu înlocuiesc unicitatea perechii.}
+
+::u07-i1-one-one-unique::Un profil trebuie să aparțină unui participant, iar participantul poate avea cel mult un profil. Ce regulă împiedică două profiluri ale aceluiași participant? {
+=Unicitate pe Profile.attendeeId împreună cu cheia străină #Corect. Cheia străină verifică referința; unicitatea limitează profilurile care o pot împărți.
+~Doar numele asocierii hasOne #Incorect. Verificați unicitatea efectivă în bază, nu o deduceți din metadatele de navigare.
+~Un validator al lungimii biografiei #Incorect. Lungimea textului nu restricționează ID-uri repetate.
+~Doar un ID generat al profilului #Incorect. Două profiluri pot avea ID-uri diferite și același participant.
+}
+
+$CATEGORY: Web Technologies/Unit 07/Intermezzo 2
+
+::u07-i2-n-plus-one::Ce formă descrie încărcarea părinților urmată de câte o interogare a copiilor pentru fiecare părinte? {
+~O interogare per coloană #Incorect. Creșterea depinde de rândurile părinte, nu de coloane.
+=Una plus N interogări #Corect. O instrucțiune pentru părinți este urmată de N instrucțiuni asociate.
+~Exact un join delimitat #Incorect. Aceasta este alternativa cu încărcare eager.
+~Nicio interogare a bazei #Incorect. Atât părinții, cât și copiii trebuie obținuți.
+}
+
+::u07-i2-delete-idempotent::Ce urmărește să stabilească un contract DELETE idempotent pentru o înscriere? {
+~La fiecare reîncercare se creează o înscriere. #Incorect. Aceasta contrazice ștergerea.
+~Rândul participantului este șters întotdeauna. #Incorect. Ștergerea înscrierii nu trebuie să elimine părintele.
+=Înscrierea este absentă după cerere, chiar dacă era deja absentă. #Corect. Repetarea urmărește aceeași stare țintă.
+~Serverul întoarce un corp JSON cu codul 204. #Incorect. Un răspuns 204 nu are corp.
+}
+
+::u07-i2-offset-shift::De ce poate paginarea cu offset repeta un rând după o inserare înaintea paginii curente? {
+=Inserarea deplasează pozițiile următoare, iar offsetul numeric rămâne fix. #Corect. Parcurgerea după poziție este sensibilă la modificările anterioare.
+~Tranzacția face mereu rollback. #Incorect. Deplasarea paginării este independentă de rollback.
+~Cheile primare sunt duplicate automat. #Incorect. Duplicatul apare între paginile observate, nu în identitățile stocate.
+~Încărcarea eager elimină ordinea. #Incorect. Problema poate apărea în orice interogare cu offset peste date în schimbare.
+}
+
+::u07-i2-child-page::Aveți nevoie de a doua pagină de sesiuni advanced pentru conferința 7, incluzând datele conferinței. Ce formă de interogare paginează sesiunile? {
+=Session.findAll cu where pe level, include conference obligatoriu restrâns la 7 și order/limit/offset la rădăcină #Corect. Fiecare rând principal paginat este o sesiune; join-ul belongsTo restrânge părintele.
+~Conference.findAll doar cu limit la rădăcină #Incorect. Limitează conferințele, nu sesiunile copil.
+~Încărcați toate sesiunile și ignoră conferenceId #Incorect. Amestecă sesiuni din conferințe diferite.
+~Folosiți offset fără order #Incorect. Paginile necesită ordine deterministă cu departajare.
+}
+
+$CATEGORY: Web Technologies/Unit 07/Intermezzo 3
+
+::u07-i3-awaited-writes::Trei scrieri în baza de date sunt așteptate secvențial fără tranzacție. Sunt atomice? {
+~Da, dar numai dacă prima scriere este o actualizare. #Incorect. Tipul operației nu creează atomicitate.
+=Nu; un eșec ulterior poate lăsa scrierile anterioare confirmate. #Corect. Await definește ordinea, nu rollback-ul.
+~Nu, deoarece scrierile așteptate nu se execută. #Incorect. Acestea se execută și se încheie secvențial.
+~Da; await creează automat o tranzacție. #Incorect. Nu este implicată nicio limită tranzacțională.
+}
+
+::u07-i3-transaction-option::Cu transmiterea automată a tranzacției al tranzacției dezactivat și propagarea explicită obligatorie, o inserare de audit omite opțiunea tranzacției, iar celelalte operații o includ. Care este rezultatul? {
+~Întregul callback devine doar pentru citire. #Incorect. Celelalte scrieri au loc în tranzacția furnizată.
+~ORM-ul o descoperă și o atașează automat. #Incorect. În acest model, propagarea explicită este obligatorie.
+~Metoda HTTP se schimbă în GET. #Incorect. Opțiunile de persistență nu modifică rutarea.
+=Inserarea auditului nu este legată explicit de tranzacție, deci atomicitatea nu este garantată. #Corect. Transmiteți aceeași tranzacție fiecărui participant; nu vă bazați pe comportamentul accidental al conexiunii.
+}
+
+::u07-i3-managed-commit::Când trebuie expus rezultatul reușit al unei tranzacții gestionate? {
+~Imediat după prima scriere #Incorect. Participanții ulteriori pot încă eșua.
+~Înaintea validării datelor #Incorect. Nu a fost stabilită nicio operație validă.
+~Numai după convertirea oricărei erori în conflict #Incorect. Identitatea erorilor neașteptate trebuie păstrată.
+=După ce callback-ul reușește și commit-ul se încheie #Corect. Răspunsul de succes se trimite după încheierea commit-ului.
+}
+
+::u07-i3-external-effect::O tranzacție scrie o rezervare, trimite un e-mail, apoi face rollback după altă eroare a bazei. Ce anulează rollback? {
+~Scrierea și e-mailul deja livrat #Incorect. Tranzacția locală nu poate retrage mesajul extern.
+~Nimic, deoarece s-a trimis un e-mail #Incorect. Scrierile participante pot fi totuși anulate.
+=Modificările participante ale bazei, nu e-mailul deja trimis #Corect. Efectele externe sunt în afara tranzacției locale.
+~Orice proprietate JavaScript schimbată în callback #Incorect. Recitiți starea stocată; rollback nu resetează obiectele arbitrare din memorie.
+}

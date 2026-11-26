@@ -1,0 +1,24 @@
+{
+  "name": "deep-link-repair-reference",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js",
+    "build:client": "vite build --config client/vite.config.js",
+    "test": "node --test",
+    "test:baseline": "node --test tests/baseline.test.js",
+    "test:objective": "node --test tests/objective.test.js",
+    "test:regression": "node --test tests/regression.test.js"
+  },
+  "dependencies": {
+    "express": "5.1.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "react-router-dom": "7.18.2"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "6.0.5",
+    "vite": "8.2.1"
+  }
+}

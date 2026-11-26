@@ -1,0 +1,20 @@
+{
+  "name": "lecture-query-operators",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node example.js",
+    "start": "node example.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "sequelize": "6.37.8",
+    "sqlite3": "6.0.1"
+  },
+  "overrides": {
+    "uuid": "11.1.1"
+  }
+}

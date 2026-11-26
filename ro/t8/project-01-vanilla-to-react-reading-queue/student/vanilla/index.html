@@ -1,0 +1,1 @@
+<!doctype html><html lang="ro"><meta charset="utf-8"><title>Coada de lectură vanilla</title><body><div id="app"></div><script type="module">import { mountReadingQueue } from './reading-queue.js'; mountReadingQueue(document.querySelector('#app'), { storage: localStorage, initialItems: [], createItemId: () => crypto.randomUUID() });</script></body></html>

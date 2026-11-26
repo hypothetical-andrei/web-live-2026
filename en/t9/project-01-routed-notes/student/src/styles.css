@@ -1,0 +1,1 @@
+:root { font-family: system-ui, sans-serif; color: #172033; background: #f2f5fa; } main { max-width: 42rem; margin: 3rem auto; padding: 1.5rem; background: white; } form { display: grid; gap: .5rem; } input, textarea, button { padding: .6rem; } textarea { min-height: 8rem; } nav, form p { margin-top: 1rem; } [role="alert"] { color: #9b1c1c; }

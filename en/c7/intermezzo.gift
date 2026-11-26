@@ -1,0 +1,84 @@
+$CATEGORY: Web Technologies/Unit 07/Intermezzo 1
+
+::u07-i1-one-many-key::In a conference-to-sessions one-to-many relationship, where does `conferenceId` normally belong? {
+~On every attendee row #Incorrect. Attendance is a different relationship.
+~Only in the HTTP response #Incorrect. The database relationship needs an authoritative key.
+~Only on the conference row #Incorrect. One column there cannot identify an arbitrary set of sessions.
+=On each session row #Correct. The many-side rows reference their one conference.
+}
+
+::u07-i1-ticket-type::Where should a ticket type that can differ per attendee-session membership be stored? {
+~On the conference title #Incorrect. That is unrelated parent data.
+=On the registration junction row #Correct. It describes one specific membership.
+~On the attendee #Incorrect. One attendee may have different ticket types across sessions.
+~On the session #Incorrect. Attendees in one session may use different ticket types.
+}
+
+::u07-i1-composite-unique::A composite unique constraint on session ID and attendee ID prevents duplicate registration membership. {TRUE #Correct. The pair constraint rejects duplicate membership even when application checks overlap. #Incorrect. Different generated IDs do not replace pair uniqueness.}
+
+::u07-i1-one-one-unique::A profile must belong to one attendee, and an attendee may have at most one profile. Which rule prevents two profiles for the same attendee? {
+=A unique constraint on Profile.attendeeId alongside its foreign key #Correct. The foreign key checks the reference; uniqueness limits how many profiles can share it.
+~Only a hasOne association name #Incorrect. Verify the actual database uniqueness rule rather than inferring it from navigation metadata.
+~A profile bio length validator #Incorrect. Text length does not restrict repeated attendee IDs.
+~A generated profile ID alone #Incorrect. Two profiles can have different IDs while sharing the same attendee ID.
+}
+
+$CATEGORY: Web Technologies/Unit 07/Intermezzo 2
+
+::u07-i2-n-plus-one::What query shape describes loading parents and then querying children once per parent? {
+~One query per column #Incorrect. The growth is tied to parent rows, not selected columns.
+=One plus N queries #Correct. One parent statement is followed by N related statements.
+~Exactly one bounded join #Incorrect. That is an eager-loading alternative.
+~No database queries #Incorrect. Both parents and children require retrieval.
+}
+
+::u07-i2-delete-idempotent::What does an idempotent DELETE membership contract aim to establish? {
+~A new registration is created on every retry. #Incorrect. That contradicts deletion.
+~The attendee row is always deleted too. #Incorrect. Membership deletion need not remove a parent.
+=The registration is absent after the request, even if it was already absent. #Correct. Repetition aims at the same target state.
+~The server returns a JSON body with status 204. #Incorrect. A 204 response has no body.
+}
+
+::u07-i2-offset-shift::Why can offset pagination repeat a row after an insertion before the current page? {
+=The insertion shifts later row positions while the numeric offset stays fixed. #Correct. Position-based traversal is sensitive to earlier changes.
+~The transaction always rolls back. #Incorrect. Pagination shift is independent of rollback.
+~Primary keys are automatically duplicated. #Incorrect. The duplicate is across observed pages, not stored identities.
+~Eager loading removes order. #Incorrect. The issue can occur with any offset query over changing ordered data.
+}
+
+::u07-i2-child-page::You need the second page of advanced sessions for conference 7, including conference data. Which query shape pages sessions? {
+=Session.findAll with level where, a required conference include scoped to 7, and root order/limit/offset #Correct. Each paged root row is a session; the belongsTo join scopes its parent.
+~Conference.findAll with a root limit only #Incorrect. That limits conferences rather than the child sessions.
+~Load all sessions and ignore conferenceId #Incorrect. That mixes sessions from different conferences.
+~Use offset without order #Incorrect. Pages need a deterministic order with a tie-breaker.
+}
+
+$CATEGORY: Web Technologies/Unit 07/Intermezzo 3
+
+::u07-i3-awaited-writes::Three database writes are awaited in sequence without a transaction. Are they atomic? {
+~Yes, but only when the first write is an update. #Incorrect. Operation type does not create atomicity.
+=No; a later failure can leave earlier writes committed. #Correct. Await defines order, not rollback.
+~No, because awaited writes never execute. #Incorrect. They execute and settle in sequence.
+~Yes; await automatically creates a transaction. #Incorrect. No transaction boundary is implied.
+}
+
+::u07-i3-transaction-option::With automatic transaction context disabled and explicit propagation required, one audit insert omits the transaction option while every other booking operation includes it. What is the result? {
+~The whole callback becomes read-only. #Incorrect. Other writes still occur within their supplied transaction.
+~The ORM automatically discovers and attaches it. #Incorrect. Explicit transaction propagation is required in this model.
+~The HTTP method changes to GET. #Incorrect. Persistence options do not alter routing.
+=The audit insert is not explicitly tied to the transaction, so atomicity is not guaranteed. #Correct. Pass the same transaction to every participant; do not rely on incidental connection behavior.
+}
+
+::u07-i3-managed-commit::When should a success result from a managed transaction be exposed? {
+~Immediately after the first write #Incorrect. Later participants can still fail.
+~Before validating input #Incorrect. No valid operation has been established.
+~Only after converting every error to conflict #Incorrect. Unexpected error identity must be preserved.
+=After the transaction callback fulfills and commit completes #Correct. Public success must follow durable success.
+}
+
+::u07-i3-external-effect::A transaction writes a booking, sends an email, then rolls back after a later database error. What does rollback undo? {
+~Both the database write and the email already delivered #Incorrect. A local database transaction cannot retract an external message.
+~Nothing, because an email was sent #Incorrect. Participating database writes can still roll back.
+=The participating database changes, but not the email already sent #Correct. External side effects are outside the local transaction.
+~Every JavaScript object property changed during the callback #Incorrect. Reload stored state; rollback does not reset arbitrary in-memory objects.
+}

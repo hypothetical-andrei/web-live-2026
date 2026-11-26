@@ -1,0 +1,22 @@
+// Pornește demonstrația direct; testele aplicației folosesc aceeași funcție de creare.
+import { createApplication } from "./app.js";
+
+const port = Number(process.env.PORT ?? 3000);
+const { app, close } = await createApplication({ log: console.log });
+const server = app.listen(port, "127.0.0.1", () => {
+  console.log(`http://127.0.0.1:${server.address().port}`);
+  console.log("SQLite este în memorie: repornirea resetează acest exemplu.");
+  console.log("GET /api/reports/note-summary?archived=false");
+  console.log("GET /api/reports/note-summary?archived=true");
+  console.log("GET /api/reports/note-summary?archived=invalid \u2192 400");
+  console.log("Folosește Ctrl+C pentru a opri serverul și a închide SQLite.");
+});
+
+function shutdown() {
+  server.close(async () => {
+    await close();
+    process.exit(0);
+  });
+}
+process.on("SIGINT", shutdown);
+process.on("SIGTERM", shutdown);

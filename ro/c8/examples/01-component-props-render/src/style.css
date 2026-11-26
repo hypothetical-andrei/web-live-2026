@@ -1,0 +1,14 @@
+body {
+  font: 16px system-ui;
+  margin: 2rem;
+}
+section {
+  display: flex;
+  gap: 1rem;
+}
+article {
+  border: 1px solid #999;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  flex: 1;
+}

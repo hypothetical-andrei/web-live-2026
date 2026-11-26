@@ -1,0 +1,16 @@
+{
+  "name": "lecture-sequelize-relationships",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node example.js"
+  },
+  "dependencies": {
+    "sequelize": "6.37.8",
+    "sqlite3": "6.0.1"
+  },
+  "overrides": {
+    "uuid": "11.1.1"
+  }
+}

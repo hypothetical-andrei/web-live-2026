@@ -1,0 +1,3 @@
+import { expect, it } from "vitest";
+import { mountReadingQueue } from "../vanilla/reading-queue.js";
+it("instanțele cozii vanilla furnizate își păstrează elementele izolate", () => { const firstRoot = document.createElement("div"); const secondRoot = document.createElement("div"); const storage = () => ({ getItem: () => null, setItem: () => {} }); const first = mountReadingQueue(firstRoot, { storage: storage(), initialItems: [{ id: "1", title: "Unu", read: false }] }); const second = mountReadingQueue(secondRoot, { storage: storage(), initialItems: [{ id: "2", title: "Doi", read: false }] }); firstRoot.querySelector('[data-remove="1"]').click(); expect(first.getItems()).toEqual([]); expect(second.getItems()).toEqual([{ id: "2", title: "Doi", read: false }]); });

@@ -1,0 +1,5 @@
+import userEvent from "@testing-library/user-event";
+import { expect, it } from "vitest";
+import OversizedWorkshopDashboard from "../evidence/OversizedWorkshopDashboard.jsx";
+import { renderDashboard } from "./helpers.jsx";
+it("preserved oversized evidence supports the characterized workflow", async () => { const user = userEvent.setup(); const view = renderDashboard(OversizedWorkshopDashboard); expect(view.getByRole("status")).toHaveTextContent("2 of 4"); await user.type(view.getByRole("textbox", { name: "Attendee name" }), "  Zoe  "); await user.clear(view.getByRole("spinbutton", { name: "Seats" })); await user.type(view.getByRole("spinbutton", { name: "Seats" }), "2"); await user.click(view.getByRole("button", { name: "Register attendee" })); expect(view.getByRole("rowheader", { name: "Zoe" })).toBeInTheDocument(); expect(view.getByRole("status")).toHaveTextContent("4 of 4"); await user.click(view.getByRole("button", { name: "Remove Zoe" })); expect(view.queryByText("Zoe")).not.toBeInTheDocument(); });

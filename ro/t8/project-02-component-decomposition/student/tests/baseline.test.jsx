@@ -1,0 +1,5 @@
+import userEvent from "@testing-library/user-event";
+import { expect, it } from "vitest";
+import OversizedWorkshopDashboard from "../evidence/OversizedWorkshopDashboard.jsx";
+import { renderDashboard } from "./helpers.jsx";
+it("dovada supradimensionată păstrată acceptă fluxul caracterizat", async () => { const user = userEvent.setup(); const view = renderDashboard(OversizedWorkshopDashboard); expect(view.getByRole("status")).toHaveTextContent("2 din 4"); await user.type(view.getByRole("textbox", { name: "Numele participantului" }), "  Zoe  "); await user.clear(view.getByRole("spinbutton", { name: "Locuri" })); await user.type(view.getByRole("spinbutton", { name: "Locuri" }), "2"); await user.click(view.getByRole("button", { name: "Înregistrează participantul" })); expect(view.getByRole("rowheader", { name: "Zoe" })).toBeInTheDocument(); expect(view.getByRole("status")).toHaveTextContent("4 din 4"); await user.click(view.getByRole("button", { name: "Elimină Zoe" })); expect(view.queryByText("Zoe")).not.toBeInTheDocument(); });

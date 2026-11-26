@@ -1,0 +1,58 @@
+$CATEGORY: Web Technologies/Unit 08/Intermezzo 1
+
+::u08-i1-element::What does a React component return during rendering? {
+~Always a preexisting DOM node #Incorrect. Elements are descriptions, not necessarily DOM objects.
+~A database transaction #Incorrect. Persistence is unrelated to rendering.
+=A description of elements React can reconcile #Correct. React later commits the required host changes.
+~A global mutable fixture #Incorrect. Component output should follow props and state.
+}
+
+::u08-i1-props::How should a child normally request that parent-owned state change? {
+~Query and rewrite the DOM outside React #Incorrect. This bypasses declarative ownership.
+~Mutate the prop object directly #Incorrect. Props are read-only inputs.
+=Call a callback prop expressing the user intent #Correct. The parent remains the state owner.
+~Import the parent's private fixture #Incorrect. That hides the component boundary.
+}
+
+::u08-i1-pure-render::Starting a fetch directly during rendering preserves render purity. {FALSE #Incorrect. External synchronization belongs in an owned effect or event boundary. #Correct. External synchronization belongs in an owned effect or event boundary.}
+
+$CATEGORY: Web Technologies/Unit 08/Intermezzo 2
+
+::u08-i2-derived::Which value is normally derived rather than separate state? {
+~The status of an in-flight request #Incorrect. That changes over time based on external work.
+~A selected filter chosen by the user #Incorrect. User selection persists as state.
+~The current controlled input text #Incorrect. The user edits it across renders, so it is owned state.
+=The number of unfinished items calculated from the current items array #Correct. It has one authoritative input and can be computed during render.
+}
+
+::u08-i2-functional-update::When is the functional state-setter form especially appropriate? {
+~Only when rendering static markup #Incorrect. No state transition is needed for static rendering.
+~When mutating the previous array in place #Incorrect. The transition should return replacement state.
+~To create an effect dependency #Incorrect. Setter form and effect dependencies solve different concerns.
+=When the next value depends on the previous value #Correct. React supplies the relevant current state to the transition.
+}
+
+::u08-i2-key::Why is an array index a weak key for a list that can reorder? {
+=It identifies position, so local row identity can move to a different domain item. #Correct. Stable domain IDs preserve sibling identity.
+~Indexes cannot be represented in JavaScript. #Incorrect. They exist but express the wrong identity.
+~Index keys prevent every render. #Incorrect. Rendering still occurs; matching can be wrong.
+~React sends index keys to the database. #Incorrect. Keys are internal to sibling reconciliation.
+}
+
+$CATEGORY: Web Technologies/Unit 08/Intermezzo 3
+
+::u08-i3-effect-purpose::Which task is an appropriate effect responsibility? {
+~Mapping items to JSX elements #Incorrect. That belongs in rendering.
+~Calculating the visible filtered array from current items and filter #Incorrect. That is a render-derived value.
+=Synchronizing the current items array to browser storage #Correct. Storage is an external system.
+~Choosing the text of a heading from a prop #Incorrect. Rendering can calculate it directly.
+}
+
+::u08-i3-cleanup::What should happen to an effect-owned debounce timer when its query changes? {
+~The timer should always fire and publish old results. #Incorrect. That creates stale behavior.
+=Cleanup should clear the old timer before scheduling synchronization for the new query. #Correct. Obsolete work loses ownership.
+~The component should mutate the DOM to hide it. #Incorrect. Timer ownership is not a DOM styling issue.
+~The dependency array should be deleted. #Incorrect. Dependencies describe reactive inputs.
+}
+
+::u08-i3-vite-build::A successful Vite production build proves the React interactions and effect cleanup are correct. {FALSE #Incorrect. Build success proves tooling/module health, not behavioral correctness. #Correct. Build success proves tooling/module health, not behavioral correctness.}
